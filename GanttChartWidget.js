@@ -1,10 +1,36 @@
 (function() {
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
-        <style>
-            /* Add your CSS styling here */
-        </style>
-        <div id="chart"></div>
+    <style>
+        .image-container {
+            width: 100%;
+            height: 100px;
+            background:url background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+        .arc {
+            stroke: #fff;
+            transition: transform 0.3s ease-out;
+        }
+        .arc:hover {
+            transform: scale(1.1);
+            cursor: pointer;
+        }
+        .arc text {
+            fill: #fff;
+            font: 10px sans-serif;
+            text-anchor: middle;
+        }
+        #chart {
+            border: 1px solid #000;
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+    <div class="image-container"> <svg width="750" height="100">  </svg></div>   
+    <div id="chart"></div>
+    <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
     `;
 
     class GanttChartWidget extends HTMLElement {
