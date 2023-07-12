@@ -1,0 +1,48 @@
+{
+    "name": "GanttChartWidget",
+    "description": "Gantt Chart Widget",
+    "newInstancePrefix": "GanttChartWidget",
+    "eula": "",
+    "license": "",
+    "id": "GanttChartWidget",
+   "version": "1.0.1",
+    "icon": "https://planifyit.github.io/Pie_chart/PlanifyIT_Logo2.png",
+    "vendor": "Planifyit",
+    "webcomponents": [
+        {
+            "kind": "main",
+            "tag": "gantt-chart-widget",
+            "url": "https://planifyit.github.io/Gantt_Chart/GanttChartWidget.js",,
+            "integrity": "",
+            "ignoreIntegrity": true
+        }
+    ],
+    "properties": {
+        "width": {
+            "type": "integer",
+            "default": 750
+        },
+        "height": {
+            "type": "integer",
+            "default": 700
+        }
+    },
+    "methods": {},
+    "events": {},
+    "dataBindings": {
+        "myDataBinding": {
+            "feeds": [
+                {
+                    "id": "dimensions",
+                    "description": "Dimensions",
+                    "type": "dimension"
+                },
+                {
+                    "id": "measures",
+                    "description": "Measures",
+                    "type": "mainStructureMember"
+                }
+            ]
+        }
+    }
+}
