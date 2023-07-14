@@ -65,7 +65,10 @@
             // Load date-fns
             const dateFnsScript = document.createElement('script');
             dateFnsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.0.0-alpha0/date_fns.min.js';
-            dateFnsScript.onload = () => this._dateFnsReady = true;
+dateFnsScript.onload = () => {
+    this._dateFnsReady = true;
+    console.log('dateFns is ready');
+};
             this._shadowRoot.appendChild(dateFnsScript);
         }
 
@@ -185,7 +188,8 @@ _updateData(dataBinding) {
                 const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
                 const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
 
-               
+                console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y);
+
                 // Draw the rectangle
                 this.ctx.fillStyle = 'blue';
                 this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
