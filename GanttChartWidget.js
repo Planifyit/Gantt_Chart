@@ -64,7 +64,7 @@
 
             // Load date-fns
             const dateFnsScript = document.createElement('script');
-            dateFnsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.27.0/date-fns.min.js';
+            dateFnsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.0.0-alpha0/date_fns.min.js';
             dateFnsScript.onload = () => this._dateFnsReady = true;
             this._shadowRoot.appendChild(dateFnsScript);
         }
