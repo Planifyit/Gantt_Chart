@@ -59,10 +59,7 @@ constructor() {
     this._shadowRoot.appendChild(dateFnsScript);
 }
 
-    createGanttChart(parentElt, milestones, options) {
-        const chart = new GanttChart(parentElt, milestones, options);
-        chart.render();
-    }
+
         // GanttChart methods
     initializeCanvas(parentElt) {
         this.canvas = document.createElement("canvas");
@@ -92,60 +89,71 @@ constructor() {
             }
         }
 
-        _updateData(dataBinding) {
-            console.log('dataBinding:', dataBinding);
-            if (!dataBinding) {
-                console.error('dataBinding is undefined');
-            }
-            if (!dataBinding || !dataBinding.data) {
-                console.error('dataBinding.data is undefined');
-            }
-            
-            if (this._ready && this._momentReady) {
-                // Check if dataBinding and dataBinding.data are defined
-                if (dataBinding && Array.isArray(dataBinding.data)) {
-                    // Transform the data into the correct format
-                    const transformedData = dataBinding.data.map(row => {
-                        console.log('row:', row);
-                        // Check if dimensions_0, dimensions_1, measures_0, and measures_1 are defined before trying to access their properties
-                        if (row.dimensions_0 && row.dimensions_1 && row.measures_0 && row.measures_1) {
-                            return {
-                                id: row.dimensions_0.label,
-                                label: row.dimensions_1.label,
-                                startDate: moment(row.measures_0.raw).format('YYYY-MM-DD'),
-                                endDate: moment(row.measures_1.raw).format('YYYY-MM-DD'),
-                                dependsOn: []  // You would need to modify this if your data includes dependencies
-                            };
-                        }
-                    }).filter(Boolean);  // Filter out any undefined values
-
-                    this._renderChart(transformedData);
-                } else {
-                    console.error('Data is not an array:', dataBinding && dataBinding.data);
+  _updateData(dataBinding) {
+    console.log('dataBinding:', dataBinding);
+    if (!dataBinding) {
+        console.error('dataBinding is undefined');
+    }
+    if (!dataBinding || !dataBinding.data) {
+        console.error('dataBinding.data is undefined');
+    }
+    
+    if (this._momentReady && this._dateFnsReady) {
+        // Check if dataBinding and dataBinding.data are defined
+        if (dataBinding && Array.isArray(dataBinding.data)) {
+            // Transform the data into the correct format
+            const transformedData = dataBinding.data.map(row => {
+                console.log('row:', row);
+                // Check if dimensions_0, dimensions_1, measures_0, and measures_1 are defined before trying to access their properties
+                if (row.dimensions_0 && row.dimensions_1 && row.measures_0 && row.measures_1) {
+                    return {
+                        id: row.dimensions_0.label,
+                        label: row.dimensions_1.label,
+                        startDate: moment(row.measures_0.raw).format('YYYY-MM-DD'),
+                        endDate: moment(row.measures_1.raw).format('YYYY-MM-DD'),
+                        dependsOn: []  // You would need to modify this if your data includes dependencies
+                    };
                 }
-            }
+            }).filter(Boolean);  // Filter out any undefined values
+
+            // Store the milestones
+            this.milestones = new Map(transformedData.map(milestone => [milestone.id, milestone]));
+
+            // Render the chart
+            this._renderChart();
+        } else {
+            console.error('Data is not an array:', dataBinding && dataBinding.data);
         }
+    }
+}
 
-        _renderChart(data) {
-            console.log('data', data);
+_renderChart(data) {
+    console.log('data', data);
 
-            // Prepare options for the chart
-            const options = {
-                elementHeight: 20,
-                sortMode: 'date',
-                svgOptions: {
-                    width: this._props.width || 500,
-                    height: this._props.height || 500,
-                    fontSize: 12
-                }
-            };
-
-            // Clear the chart element
-            d3.select(this._shadowRoot.getElementById('chart')).selectAll("*").remove();
-
-            // Call the createGanttChart function to draw the chart
-            createGanttChart(this._shadowRoot.getElementById('chart'), data, options);
+    // Prepare options for the chart
+    const options = {
+        elementHeight: 20,
+        sortMode: 'date',
+        svgOptions: {
+            width: this._props.width || 500,
+            height: this._props.height || 500,
+            fontSize: 12
         }
+    };
+
+    // Clear the chart element
+    const chartElement = this._shadowRoot.getElementById('chart');
+    while (chartElement.firstChild) {
+        chartElement.removeChild(chartElement.firstChild);
+    }
+
+    // Initialize the canvas
+    this.initializeCanvas(chartElement);
+
+    // Draw the chart
+    // TODO: Add your code for drawing the chart using the Canvas API here
+}
+
     }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
