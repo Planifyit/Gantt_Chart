@@ -199,6 +199,10 @@ _renderChart() {
         this.ctx.fillStyle = 'blue';
         this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
 
+         // Draw the label
+    this.ctx.fillStyle = 'black';
+    this.ctx.fillText(milestone.label, startX, y - 5);  // Adjust the y-coordinate as needed
+
         // Move to the next row
         y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
     }
