@@ -1,3 +1,4 @@
+
 (function() {
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
@@ -24,25 +25,29 @@
             this.tasks = [];
 
             // Load jQuery
-            const jQueryScript = document.createElement('script');
-            jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-            jQueryScript.onload = () => {
-                // Load jQuery UI
-                const jQueryUIScript = document.createElement('script');
-                jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
-                jQueryUIScript.onload = () => {
-                    // Load jQuery.Gantt
-                    const jQueryGanttScript = document.createElement('script');
-                    jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
-                    jQueryGanttScript.onload = () => {
-                        this._jQueryGanttReady = true;
-                        this._renderChart();
-                    };
-                    this._shadowRoot.appendChild(jQueryGanttScript);
-                };
-                this._shadowRoot.appendChild(jQueryUIScript);
-            };
-            this._shadowRoot.appendChild(jQueryScript);
+const jQueryScript = document.createElement('script');
+jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+jQueryScript.onload = () => {
+    // Use noConflict to avoid conflicts with other libraries
+    const jQueryNoConflict = jQuery.noConflict(true);
+    // Load jQuery UI
+    const jQueryUIScript = document.createElement('script');
+    jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
+    jQueryUIScript.onload = () => {
+        // Load jQuery.Gantt
+        const jQueryGanttScript = document.createElement('script');
+        jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
+        jQueryGanttScript.onload = () => {
+            this._jQueryGanttReady = true;
+            this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
+            this._renderChart();
+        };
+        this._shadowRoot.appendChild(jQueryGanttScript);
+    };
+    this._shadowRoot.appendChild(jQueryUIScript);
+};
+this._shadowRoot.appendChild(jQueryScript);
+
         }
 
         // GanttChart methods
@@ -118,29 +123,29 @@
 }
 
 
-        _renderChart() {
-            console.log('_renderChart called');
-            if (this._jQueryGanttReady) {
-                const chartElement = this._shadowRoot.getElementById('chart');
-                $(chartElement).gantt({
-                    source: this.tasks,
-                    navigate: 'scroll',
-                    scale: 'weeks',
-                    maxScale: 'months',
-                    minScale: 'days',
-                    itemsPerPage: 10,
-                    onItemClick: function(data) {
-                        alert('Item clicked - show some details');
-                    },
-                    onAddClick: function(dt, rowId) {
-                        alert('Empty space clicked - add an item!');
-                    },
-                    onRender: function() {
-                        console.log('chart rendered');
-                    }
-                });
+   _renderChart() {
+    console.log('_renderChart called');
+    if (this._jQueryGanttReady) {
+        const chartElement = this._shadowRoot.getElementById('chart');
+        this._jQuery(chartElement).gantt({
+            source: this.tasks,
+            navigate: 'scroll',
+            scale: 'weeks',
+            maxScale: 'months',
+            minScale: 'days',
+            itemsPerPage: 10,
+            onItemClick: function(data) {
+                alert('Item clicked - show some details');
+            },
+            onAddClick: function(dt, rowId) {
+                alert('Empty space clicked - add an item!');
+            },
+            onRender: function() {
+                console.log('chart rendered');
             }
-        }
+        });
+    }
+}
     }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
