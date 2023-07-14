@@ -23,20 +23,26 @@
             this._props = {};
             this.tasks = [];
 
-            // Load moment.js
-            const momentScript = document.createElement('script');
-            momentScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js';
-            momentScript.onload = () => this._momentReady = true;
-            this._shadowRoot.appendChild(momentScript);
-
-            // Load frappe-gantt ES5 version
-            const frappeGanttScript = document.createElement('script');
-            frappeGanttScript.src = 'https://unpkg.com/frappe-gantt/dist/frappe-gantt.js';
-            frappeGanttScript.onload = () => {
-                this._frappeGanttReady = true;
-                this._renderChart();
+            // Load jQuery
+            const jQueryScript = document.createElement('script');
+            jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+            jQueryScript.onload = () => {
+                // Load jQuery UI
+                const jQueryUIScript = document.createElement('script');
+                jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
+                jQueryUIScript.onload = () => {
+                    // Load jQuery.Gantt
+                    const jQueryGanttScript = document.createElement('script');
+                    jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
+                    jQueryGanttScript.onload = () => {
+                        this._jQueryGanttReady = true;
+                        this._renderChart();
+                    };
+                    this._shadowRoot.appendChild(jQueryGanttScript);
+                };
+                this._shadowRoot.appendChild(jQueryUIScript);
             };
-            this._shadowRoot.appendChild(frappeGanttScript);
+            this._shadowRoot.appendChild(jQueryScript);
         }
 
         // GanttChart methods
@@ -69,55 +75,66 @@
 
         _updateData(dataBinding) {
             console.log('_updateData called');
-            if (this._momentReady) {
-                if (dataBinding && Array.isArray(dataBinding.data)) {
-                    this.tasks = dataBinding.data.map(row => {
-                        if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
-                            const startDate = new Date(row.dimensions_2.id);
-                            const endDate = new Date(row.dimensions_3.id);
-                            // Check if startDate and endDate are valid dates
-                            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                                console.error('Invalid date:', row.dimensions_2.id, row.dimensions_3.id);
-                                return null;
-                            }
-                            // Check if startDate is before endDate
-                            if (startDate > endDate) {
-                                console.error('Start date is after end date:', startDate, endDate);
-                                return null;
-                            }
-                            console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
-                            return {
-                                id: row.dimensions_0.label,
-                                name: row.dimensions_1.label,
-                                start: startDate,
-                                end: endDate,
-                                progress: 0,
-                                dependencies: ''
-                            };
+            if (dataBinding && Array.isArray(dataBinding.data)) {
+                this.tasks = dataBinding.data.map(row => {
+                    if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
+                        const startDate = new Date(row.dimensions_2.id);
+                        const endDate = new Date(row.dimensions_3.id);
+                        // Check if startDate and endDate are valid dates
+                        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                            console.error('Invalid date:', row.dimensions_2.id, row.dimensions_3.id);
+                            return null;
                         }
-                    }).filter(Boolean);  // Filter out any null values
-
-                    // Check if all tasks have valid start and end dates
-                    for (let task of this.tasks) {
-                        if (task.start === null || task.end === null) {
-                            console.error('Task with null start or end date:', task);
+                        // Check if startDate is before endDate
+                        if (startDate > endDate) {
+                            console.error('Start date is after end date:', startDate, endDate);
+                            return null;
                         }
+                        console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
+                        return {
+                            id: row.dimensions_0.label,
+                            name: row.dimensions_1.label,
+                            start: startDate,
+                            end: endDate,
+                            progress: 0,
+                            dependencies: ''
+                        };
                     }
+                }).filter(Boolean);  // Filter out any null values
 
-                    console.log('Tasks:', this.tasks);  // Log the tasks
-
-                    this._renderChart();
+                // Check if all tasks have valid start and end dates
+                for (let task of this.tasks) {
+                    if (task.start === null || task.end === null) {
+                        console.error('Task with null start or end date:', task);
+                    }
                 }
+
+                console.log('Tasks:', this.tasks);  // Log the tasks
+
+                this._renderChart();
             }
         }
 
         _renderChart() {
             console.log('_renderChart called');
-            if (this._frappeGanttReady) {
+            if (this._jQueryGanttReady) {
                 const chartElement = this._shadowRoot.getElementById('chart');
-                new Gantt(chartElement, this.tasks, {
-                    view_mode: 'Month',
-                    language: 'en'
+                $(chartElement).gantt({
+                    source: this.tasks,
+                    navigate: 'scroll',
+                    scale: 'weeks',
+                    maxScale: 'months',
+                    minScale: 'days',
+                    itemsPerPage: 10,
+                    onItemClick: function(data) {
+                        alert('Item clicked - show some details');
+                    },
+                    onAddClick: function(dt, rowId) {
+                        alert('Empty space clicked - add an item!');
+                    },
+                    onRender: function() {
+                        console.log('chart rendered');
+                    }
                 });
             }
         }
