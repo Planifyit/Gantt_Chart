@@ -131,15 +131,14 @@ static get metadata() {
                     const transformedData = dataBinding.data.map(row => {
                         console.log('row:', row);
                         // Check if dimensions_0, dimensions_1, measures_0, and measures_1 are defined before trying to access their properties
-                        if (row.dimensions_0 && row.dimensions_1 && row.measures_0 && row.measures_1) {
-                            return {
-                                id: row.dimensions_0.label,
-                                label: row.dimensions_1.label,
-                                startDate: moment(row.measures_0.raw).format('YYYY-MM-DD'),
-                                endDate: moment(row.measures_1.raw).format('YYYY-MM-DD'),
-                           
-                            };
-                        }
+                     if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
+    return {
+        id: row.dimensions_0.label,
+        label: row.dimensions_1.label,
+        startDate: moment(row.dimensions_2.id).format('YYYY-MM-DD'),
+        endDate: moment(row.dimensions_3.id).format('YYYY-MM-DD'),
+    };
+}
                     }).filter(Boolean);  // Filter out any undefined values
 
                     // Store the milestones
