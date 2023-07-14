@@ -34,25 +34,54 @@
     `;
 
     class GanttChartWidget extends HTMLElement {
-        constructor() {
-            super();
-            this._shadowRoot = this.attachShadow({mode: 'open'});
-            this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
-            this._props = {};
+constructor() {
+    super();
+    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    this._props = {};
+  // Initialize GanttChart properties
+        this.milestones = new Map();
+        this.canvas = null;
+        this.canvasWidth = null;
+        this.canvasHeight = null;
+        this.ctx = null;
+    
+    // Load moment.js
+    const momentScript = document.createElement('script');
+    momentScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js';
+    momentScript.onload = () => this._momentReady = true;
+    this._shadowRoot.appendChild(momentScript);
 
-            // Load D3.js
-            const script = document.createElement('script');
-            script.src = 'https://d3js.org/d3.v5.min.js';
-            script.onload = () => this._ready = true;
-            this._shadowRoot.appendChild(script);
+    // Load date-fns
+    const dateFnsScript = document.createElement('script');
+    dateFnsScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.27.0/date-fns.min.js';
+    dateFnsScript.onload = () => this._dateFnsReady = true;
+    this._shadowRoot.appendChild(dateFnsScript);
+}
 
-            // Load moment.js
-            const momentScript = document.createElement('script');
-            momentScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js';
-            momentScript.onload = () => this._momentReady = true;
-            this._shadowRoot.appendChild(momentScript);
-        }
+    createGanttChart(parentElt, milestones, options) {
+        const chart = new GanttChart(parentElt, milestones, options);
+        chart.render();
+    }
+        // GanttChart methods
+    initializeCanvas(parentElt) {
+        this.canvas = document.createElement("canvas");
+        parentElt.appendChild(this.canvas);
 
+        this.canvasWidth = this.canvas.outerWidth || DEFAULT_WIDTH;
+        this.canvasHeight =
+            this.canvas.outerHeight ||
+            HEADER_HEIGHT + (this.milestones.size * (DEFAULT_ROW_HEIGHT + (DEFAULT_ROW_PADDING * 2)));
+
+        this.canvas.style.width = `${this.canvasWidth / SCALE_FACTOR}px`;
+        this.canvas.style.height = `${this.canvasHeight / SCALE_FACTOR}px`;
+
+        this.canvas.width = this.canvasWidth;
+        this.canvas.height = this.canvasHeight;
+
+        this.ctx = this.canvas.getContext("2d");
+    }
+        
         onCustomWidgetBeforeUpdate(changedProperties) {
             this._props = { ...this._props, ...changedProperties };
         }
