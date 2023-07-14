@@ -107,13 +107,16 @@ static get metadata() {
     this._props = { ...this._props, ...changedProperties };
 }
         
-        onCustomWidgetAfterUpdate(changedProperties) {
-             console.log('onCustomWidgetAfterUpdate called with:', changedProperties);
+onCustomWidgetAfterUpdate(changedProperties) {
+    console.log('onCustomWidgetAfterUpdate called with:', changedProperties);
 
-            if ("myDataBinding" in changedProperties) {
-                this._updateData(changedProperties.myDataBinding);
-            }
+    if ("myDataBinding" in changedProperties) {
+        const dataBinding = changedProperties.myDataBinding;
+        if (dataBinding.state === 'success') {
+            this._updateData(dataBinding);
         }
+    }
+}
 
 _updateData(dataBinding) {
     console.log('dataBinding:', dataBinding);
