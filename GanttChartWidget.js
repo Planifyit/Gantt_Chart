@@ -89,7 +89,7 @@ constructor() {
             }
         }
 
-  _updateData(dataBinding) {
+_updateData(dataBinding) {
     console.log('dataBinding:', dataBinding);
     if (!dataBinding) {
         console.error('dataBinding is undefined');
@@ -119,6 +119,12 @@ constructor() {
             // Store the milestones
             this.milestones = new Map(transformedData.map(milestone => [milestone.id, milestone]));
 
+            // Calculate the start date of the Gantt chart
+            this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
+                const startDate = new Date(milestone.startDate);
+                return startDate < min ? startDate : min;
+            }, new Date(Infinity));
+
             // Render the chart
             this._renderChart();
         } else {
@@ -127,20 +133,8 @@ constructor() {
     }
 }
 
-_renderChart(data) {
-    console.log('data', data);
 
-    // Prepare options for the chart
-    const options = {
-        elementHeight: 20,
-        sortMode: 'date',
-        svgOptions: {
-            width: this._props.width || 500,
-            height: this._props.height || 500,
-            fontSize: 12
-        }
-    };
-
+_renderChart() {
     // Clear the chart element
     const chartElement = this._shadowRoot.getElementById('chart');
     while (chartElement.firstChild) {
@@ -150,11 +144,24 @@ _renderChart(data) {
     // Initialize the canvas
     this.initializeCanvas(chartElement);
 
-    // Draw the chart
-    // TODO: Add your code for drawing the chart using the Canvas API here
+    // Set the font size
+    this.ctx.font = `${this._props.fontSize || 12}px sans-serif`;
+
+    // Draw a rectangle for each milestone
+    let y = HEADER_HEIGHT;
+    for (let milestone of this.milestones.values()) {
+        // Calculate the x coordinates of the start and end of the rectangle
+        const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
+        const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
+
+        // Draw the rectangle
+        this.ctx.fillRect(startX, y, endX - startX, this._props.elementHeight || 20);
+
+        // Move to the next row
+        y += (this._props.elementHeight || 20) + (DEFAULT_ROW_PADDING * 2);
+    }
 }
 
-    }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
 })();
