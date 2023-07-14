@@ -156,8 +156,11 @@ _updateData(dataBinding) {
             // Calculate the start date of the Gantt chart
             this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
                 const startDate = new Date(milestone.startDate);
+                console.log('milestone startDate:', startDate);  // Log the start date of each milestone
                 return startDate < min ? startDate : min;
             }, new Date(Infinity));
+
+            console.log('chartStartDate:', this.startDate);  // Log the start date of the chart
 
             // Render the chart
             this._renderChart();
@@ -166,6 +169,7 @@ _updateData(dataBinding) {
         }
     }
 }
+
 
 _renderChart() {
     console.log('_renderChart called');
