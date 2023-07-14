@@ -26,14 +26,18 @@
             momentScript.onload = () => this._momentReady = true;
             this._shadowRoot.appendChild(momentScript);
 
-            // Load frappe-gantt
-            const frappeGanttScript = document.createElement('script');
-            frappeGanttScript.src = 'https://unpkg.com/frappe-gantt';
-            frappeGanttScript.onload = () => {
-                this._frappeGanttReady = true;
-                this._renderChart();
+            // Load SystemJS
+            const systemJsScript = document.createElement('script');
+            systemJsScript.src = 'https://unpkg.com/systemjs/dist/system.js';
+            systemJsScript.onload = () => {
+                // Load frappe-gantt using SystemJS
+                SystemJS.import('https://unpkg.com/frappe-gantt').then((module) => {
+                    this.Gantt = module.default;
+                    this._frappeGanttReady = true;
+                    this._renderChart();
+                });
             };
-            this._shadowRoot.appendChild(frappeGanttScript);
+            this._shadowRoot.appendChild(systemJsScript);
         }
 
         // GanttChart methods
@@ -87,7 +91,7 @@
         _renderChart() {
             if (this._frappeGanttReady) {
                 const chartElement = this._shadowRoot.getElementById('chart');
-                new Gantt(chartElement, this.tasks, {
+                new this.Gantt(chartElement, this.tasks, {
                     view_mode: 'Month',
                     language: 'en'
                 });
