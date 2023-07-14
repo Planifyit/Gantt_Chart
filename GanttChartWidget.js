@@ -5,9 +5,10 @@
     const DEFAULT_WIDTH = 500;
     const SCALE_FACTOR = 2;
     const DEFAULT_ROW_HEIGHT = 20;
-     const FONT_SIZE = 12;
+    const FONT_SIZE = 12;
     const ELEMENT_HEIGHT = 20;
-    
+    const COLORS = ['blue', 'green', 'red', 'purple', 'orange', 'pink', 'yellow', 'cyan', 'magenta', 'lime'];
+
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
@@ -198,6 +199,7 @@ _renderChart() {
 
     // Draw a rectangle for each milestone
     let y = HEADER_HEIGHT;
+    let index = 0;  // Add an index variable
     for (let milestone of this.milestones.values()) {
         // Calculate the x coordinates of the start and end of the rectangle
         const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
@@ -205,16 +207,17 @@ _renderChart() {
 
         console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y, 'startDate:', new Date(milestone.startDate), 'endDate:', new Date(milestone.endDate), 'chartStartDate:', this.startDate);  // Log the start and end dates of the milestone and the start date of the chart
 
-        // Draw the rectangle with a different color for each task
-        this.ctx.fillStyle = milestone.id % 2 === 0 ? 'blue' : 'green';
+     // Draw the rectangle
+        this.ctx.fillStyle = COLORS[index % COLORS.length];  // Use the index to select a color
         this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
-
+        
         // Draw the label on the left side of the chart
         this.ctx.fillStyle = 'black';
         this.ctx.fillText(milestone.label, 0, y + ELEMENT_HEIGHT / 2 + FONT_SIZE / 2);
 
         // Move to the next row
         y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
+          index++;  // Increment the index
     }
 }
 
