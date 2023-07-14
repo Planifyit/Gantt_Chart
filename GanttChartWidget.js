@@ -137,7 +137,7 @@ static get metadata() {
                                 label: row.dimensions_1.label,
                                 startDate: moment(row.measures_0.raw).format('YYYY-MM-DD'),
                                 endDate: moment(row.measures_1.raw).format('YYYY-MM-DD'),
-                                dependsOn: []  // You would need to modify this if your data includes dependencies
+                           
                             };
                         }
                     }).filter(Boolean);  // Filter out any undefined values
