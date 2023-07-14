@@ -187,6 +187,8 @@ _updateData(dataBinding) {
                 // Calculate the x coordinates of the start and end of the rectangle
                 const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
                 const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
+                
+                console.log(dateFns.differenceInDays(new Date('2023-12-31'), new Date('2023-01-01')));  // Should log 364
 
                 console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y);
 
