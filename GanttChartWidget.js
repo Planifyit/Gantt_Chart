@@ -45,6 +45,7 @@
     class GanttChartWidget extends HTMLElement {
         constructor() {
             super();
+         console.log('GanttChartWidget constructor called');
             this._shadowRoot = this.attachShadow({mode: 'open'});
             this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
             this._props = {};
@@ -70,6 +71,7 @@
 
         // GanttChart methods
 static get metadata() {
+     console.log('metadata getter called');
     return {
         properties: {
             myDataBinding: {
@@ -81,6 +83,7 @@ static get metadata() {
     };
 }   
         initializeCanvas(parentElt) {
+                 console.log('initializeCanvas called');
             this.canvas = document.createElement("canvas");
             parentElt.appendChild(this.canvas);
 
@@ -99,10 +102,14 @@ static get metadata() {
         }
             
   onCustomWidgetBeforeUpdate(changedProperties) {
+      console.log('onCustomWidgetBeforeUpdate called with:', changedProperties);
+
     this._props = { ...this._props, ...changedProperties };
 }
         
         onCustomWidgetAfterUpdate(changedProperties) {
+             console.log('onCustomWidgetAfterUpdate called with:', changedProperties);
+
             if ("myDataBinding" in changedProperties) {
                 this._updateData(changedProperties.myDataBinding);
             }
@@ -153,6 +160,8 @@ static get metadata() {
         }
 
         _renderChart() {
+            console.log('_renderChart called');
+       
             // Clear the chart element
             const chartElement = this._shadowRoot.getElementById('chart');
             while (chartElement.firstChild) {
@@ -186,4 +195,5 @@ static get metadata() {
     }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
+     console.log('GanttChartWidget defined');
 })();
