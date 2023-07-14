@@ -93,7 +93,7 @@ static get metadata() {
             this.canvasWidth = this.canvas.outerWidth || DEFAULT_WIDTH;
             this.canvasHeight =
                 this.canvas.outerHeight ||
-                HEADER_HEIGHT + (this.milestones.size * (DEFAULT_ROW_HEIGHT + (DEFAULT_ROW_PADDING * 2)));
+                HEADER_HEIGHT + (this.milestones.size * (DEFAULT_ROW_HEIGHT + (DEFAULT_ROW_PADDING * 2))) * 2;
 
             this.canvas.style.width = `${this.canvasWidth / SCALE_FACTOR}px`;
             this.canvas.style.height = `${this.canvasHeight / SCALE_FACTOR}px`;
