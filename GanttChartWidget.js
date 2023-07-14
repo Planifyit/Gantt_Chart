@@ -61,45 +61,36 @@
             }
         }
 
-_updateData(dataBinding) {
-    if (this._momentReady) {
-        if (dataBinding && Array.isArray(dataBinding.data)) {
-            this.tasks = dataBinding.data.map(row => {
-                if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
-                    const startDate = new Date(row.dimensions_2.id);
-                    const endDate = new Date(row.dimensions_3.id);
-                    // Check if startDate and endDate are valid dates
-                    if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
-                        console.error('Invalid date:', row.dimensions_2.id, row.dimensions_3.id);
-                        return null;
-                    }
-                    // Check if startDate is before endDate
-                    if (startDate > endDate) {
-                        console.error('Start date is after end date:', startDate, endDate);
-                        return null;
-                    }
-                    console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
-                    return {
-                        id: row.dimensions_0.label,
-                        name: row.dimensions_1.label,
-                        start: startDate,
-                        end: endDate,
-                        progress: 0,
-                        dependencies: ''
-                    };
-                }
-            }).filter(Boolean);  // Filter out any null values
+        _updateData(dataBinding) {
+            if (this._momentReady) {
+                if (dataBinding && Array.isArray(dataBinding.data)) {
+                    this.tasks = dataBinding.data.map(row => {
+                        if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
+                            const startDate = new Date(row.dimensions_2.id);
+                            const endDate = new Date(row.dimensions_3.id);
+                            // Check if startDate and endDate are valid dates
+                            if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+                                console.error('Invalid date:', row.dimensions_2.id, row.dimensions_3.id);
+                                return null;
+                            }
+                            // Check if startDate is before endDate
+                            if (startDate > endDate) {
+                                console.error('Start date is after end date:', startDate, endDate);
+                                return null;
+                            }
+                            console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
+                            return {
+                                id: row.dimensions_0.label,
+                                name: row.dimensions_1.label,
+                                start: startDate,
+                                end: endDate,
+                                progress: 0,
+                                dependencies: ''
+                            };
+                        }
+                    }).filter(Boolean);  // Filter out any null values
 
-            console.log('Tasks:', this.tasks);  // Log the tasks
-
-            this._renderChart();
-        }
-    }
-}
-
-
-
-
+                    console.log('Tasks:', this.tasks);  // Log the tasks
 
                     this._renderChart();
                 }
