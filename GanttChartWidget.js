@@ -66,6 +66,17 @@
         }
 
         // GanttChart methods
+static get metadata() {
+    return {
+        properties: {
+            myDataBinding: {
+                type: "object",
+                defaultValue: {}
+            }
+        }
+    };
+}
+        
         initializeCanvas(parentElt) {
             this.canvas = document.createElement("canvas");
             parentElt.appendChild(this.canvas);
