@@ -5,7 +5,9 @@
     const DEFAULT_WIDTH = 500;
     const SCALE_FACTOR = 2;
     const DEFAULT_ROW_HEIGHT = 20;
-
+     const FONT_SIZE = 12;
+    const ELEMENT_HEIGHT = 20;
+    
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
@@ -74,14 +76,7 @@ static get metadata() {
                 type: "object",
                 defaultValue: {}
             },
-            fontSize: {
-                type: "number",
-                defaultValue: 12
-            },
-            elementHeight: {
-                type: "number",
-                defaultValue: 20
-            }
+           
         }
     };
 }   
@@ -167,9 +162,11 @@ static get metadata() {
             // Initialize the canvas
             this.initializeCanvas(chartElement);
 
-            // Set the font size
-            this.ctx.font = `${this._props.fontSize || 12}px sans-serif`;
+     
+ // Set the font size
+            this.ctx.font = `${FONT_SIZE}px sans-serif`;
 
+            
             // Draw a rectangle for each milestone
             let y = HEADER_HEIGHT;
             for (let milestone of this.milestones.values()) {
@@ -177,9 +174,10 @@ static get metadata() {
                 const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
                 const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
 
+               
                 // Draw the rectangle
                 this.ctx.fillStyle = 'blue';
-                this.ctx.fillRect(startX, y, endX - startX, this._props.elementHeight || 20);
+                this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
 
                 // Move to the next row
                 y += (this._props.elementHeight || 20) + (DEFAULT_ROW_PADDING * 2);
