@@ -180,7 +180,7 @@ static get metadata() {
                 this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
 
                 // Move to the next row
-                y += (this._props.elementHeight || 20) + (DEFAULT_ROW_PADDING * 2);
+               y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
             }
         }
     }
