@@ -68,6 +68,11 @@ this.tasks = dataBinding.data.map(row => {
     if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
         const startDate = new Date(row.dimensions_2.id);
         const endDate = new Date(row.dimensions_3.id);
+        // Check if startDate and endDate are valid dates
+        if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+            console.error('Invalid date:', row.dimensions_2.id, row.dimensions_3.id);
+            return null;
+        }
         console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
         return {
             id: row.dimensions_0.label,
@@ -78,7 +83,8 @@ this.tasks = dataBinding.data.map(row => {
             dependencies: ''
         };
     }
-}).filter(Boolean);
+}).filter(Boolean);  // Filter out any null values
+
 
 
 
