@@ -66,8 +66,8 @@
                 if (dataBinding && Array.isArray(dataBinding.data)) {
 this.tasks = dataBinding.data.map(row => {
     if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
-        const startDate = new Date(moment(row.dimensions_2.id).format('YYYY-MM-DD'));
-        const endDate = new Date(moment(row.dimensions_3.id).format('YYYY-MM-DD'));
+        const startDate = new Date(row.dimensions_2.id);
+        const endDate = new Date(row.dimensions_3.id);
         console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
         return {
             id: row.dimensions_0.label,
@@ -79,6 +79,7 @@ this.tasks = dataBinding.data.map(row => {
         };
     }
 }).filter(Boolean);
+
 
 
                     this._renderChart();
