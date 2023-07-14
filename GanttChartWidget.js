@@ -154,11 +154,11 @@ _updateData(dataBinding) {
             this.milestones = new Map(transformedData.map(milestone => [milestone.id, milestone]));
 
             // Calculate the start date of the Gantt chart
-            this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
-                const startDate = new Date(milestone.startDate);
-                console.log('milestone startDate:', startDate);  // Log the start date of each milestone
-                return startDate < min ? startDate : min;
-            }, new Date(Infinity));
+       this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
+    const startDate = new Date(milestone.startDate);
+    console.log('milestone startDate:', startDate);  // Log the start date of each milestone
+    return startDate < min ? startDate : min;
+}, new Date('9999-12-31'));  // Start with a date far in the future
 
             console.log('chartStartDate:', this.startDate);  // Log the start date of the chart
 
