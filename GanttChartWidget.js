@@ -163,6 +163,13 @@ _updateData(dataBinding) {
 
             console.log('chartStartDate:', this.startDate);  // Log the start date of the chart
 
+            this.endDate = Array.from(this.milestones.values()).reduce((max, milestone) => {
+    const endDate = new Date(milestone.endDate);
+    console.log('milestone endDate:', endDate);  // Log the end date of each milestone
+    return endDate > max ? endDate : max;
+}, new Date('0000-01-01'));  // Start with a date far in the past
+
+               console.log('chartStartDate:', this.endDate);  // Log the start date of the chart
             // Render the chart
             this._renderChart();
         } else {
@@ -174,7 +181,7 @@ _updateData(dataBinding) {
 
 _renderChart() {
     console.log('_renderChart called');
-
+  
     // Clear the chart element
     const chartElement = this._shadowRoot.getElementById('chart');
     while (chartElement.firstChild) {
@@ -187,6 +194,7 @@ _renderChart() {
     // Set the font size
     this.ctx.font = `${FONT_SIZE}px sans-serif`;
 
+
     // Draw the header with the months and days
     const days = dateFns.differenceInDays(new Date(this.endDate), this.startDate);
     for (let i = 0; i <= days; i++) {
@@ -194,7 +202,8 @@ _renderChart() {
         if (dateFns.isFirstDayOfMonth(date)) {
             this.ctx.fillText(dateFns.format(date, 'MMM'), i * DAY_WIDTH, FONT_SIZE);
         }
-        this.ctx.fillText(dateFns.format(date, 'D'), i * DAY_WIDTH, FONT_SIZE * 2);
+        this.ctx.fillText(dateFns.format(date, 'D'), i * DAY_WIDTH + DAY_WIDTH / 2, FONT_SIZE * 2);
+
     }
 
     // Draw a rectangle for each milestone
