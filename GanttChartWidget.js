@@ -14,7 +14,7 @@
         .image-container {
             width: 100%;
             height: 100px;
-            background:url background-size: contain;
+            background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
         }
