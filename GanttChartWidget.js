@@ -138,11 +138,14 @@ _updateData(dataBinding) {
                 console.log('row:', row);
                 // Check if dimensions_0, dimensions_1, dimensions_2, and dimensions_3 are defined before trying to access their properties
                 if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
+                    const startDate = moment(row.dimensions_2.id).format('YYYY-MM-DD');
+                    const endDate = moment(row.dimensions_3.id).format('YYYY-MM-DD');
+                    console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
                     return {
                         id: row.dimensions_0.label,
                         label: row.dimensions_1.label,
-                        startDate: moment(row.dimensions_2.id).format('YYYY-MM-DD'),
-                        endDate: moment(row.dimensions_3.id).format('YYYY-MM-DD'),
+                        startDate: startDate,
+                        endDate: endDate,
                     };
                 }
             }).filter(Boolean);  // Filter out any undefined values
@@ -164,42 +167,39 @@ _updateData(dataBinding) {
     }
 }
 
-        _renderChart() {
-            console.log('_renderChart called');
-       
-            // Clear the chart element
-            const chartElement = this._shadowRoot.getElementById('chart');
-            while (chartElement.firstChild) {
-                chartElement.removeChild(chartElement.firstChild);
-            }
+_renderChart() {
+    console.log('_renderChart called');
+   
+    // Clear the chart element
+    const chartElement = this._shadowRoot.getElementById('chart');
+    while (chartElement.firstChild) {
+        chartElement.removeChild(chartElement.firstChild);
+    }
 
-            // Initialize the canvas
-            this.initializeCanvas(chartElement);
+    // Initialize the canvas
+    this.initializeCanvas(chartElement);
 
-     
- // Set the font size
-            this.ctx.font = `${FONT_SIZE}px sans-serif`;
+    // Set the font size
+    this.ctx.font = `${FONT_SIZE}px sans-serif`;
 
-            
-            // Draw a rectangle for each milestone
-            let y = HEADER_HEIGHT;
-            for (let milestone of this.milestones.values()) {
-                // Calculate the x coordinates of the start and end of the rectangle
-                const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
-                const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
-                
-                console.log(dateFns.differenceInDays(new Date('2023-12-31'), new Date('2023-01-01')));  // Should log 364
+    // Draw a rectangle for each milestone
+    let y = HEADER_HEIGHT;
+    for (let milestone of this.milestones.values()) {
+        // Calculate the x coordinates of the start and end of the rectangle
+        const startX = dateFns.differenceInDays(new Date(milestone.startDate), this.startDate) * DAY_WIDTH;
+        const endX = dateFns.differenceInDays(new Date(milestone.endDate), this.startDate) * DAY_WIDTH;
 
-                console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y);
+        console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y, 'startDate:', new Date(milestone.startDate), 'endDate:', new Date(milestone.endDate), 'chartStartDate:', this.startDate);  // Log the start and end dates of the milestone and the start date of the chart
 
-                // Draw the rectangle
-                this.ctx.fillStyle = 'blue';
-                this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
+        // Draw the rectangle
+        this.ctx.fillStyle = 'blue';
+        this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
 
-                // Move to the next row
-               y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
-            }
-        }
+        // Move to the next row
+        y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
+    }
+}
+
     }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
