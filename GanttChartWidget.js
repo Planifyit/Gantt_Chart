@@ -173,7 +173,7 @@ _updateData(dataBinding) {
 
 _renderChart() {
     console.log('_renderChart called');
-   
+
     // Clear the chart element
     const chartElement = this._shadowRoot.getElementById('chart');
     while (chartElement.firstChild) {
@@ -186,6 +186,16 @@ _renderChart() {
     // Set the font size
     this.ctx.font = `${FONT_SIZE}px sans-serif`;
 
+    // Draw the header with the months and days
+    const days = dateFns.differenceInDays(new Date(this.endDate), this.startDate);
+    for (let i = 0; i <= days; i++) {
+        const date = dateFns.addDays(this.startDate, i);
+        if (dateFns.isFirstDayOfMonth(date)) {
+            this.ctx.fillText(dateFns.format(date, 'MMM'), i * DAY_WIDTH, FONT_SIZE);
+        }
+        this.ctx.fillText(dateFns.format(date, 'D'), i * DAY_WIDTH, FONT_SIZE * 2);
+    }
+
     // Draw a rectangle for each milestone
     let y = HEADER_HEIGHT;
     for (let milestone of this.milestones.values()) {
@@ -195,13 +205,13 @@ _renderChart() {
 
         console.log('Drawing rectangle for milestone:', milestone, 'startX:', startX, 'endX:', endX, 'y:', y, 'startDate:', new Date(milestone.startDate), 'endDate:', new Date(milestone.endDate), 'chartStartDate:', this.startDate);  // Log the start and end dates of the milestone and the start date of the chart
 
-        // Draw the rectangle
-        this.ctx.fillStyle = 'blue';
+        // Draw the rectangle with a different color for each task
+        this.ctx.fillStyle = milestone.id % 2 === 0 ? 'blue' : 'green';
         this.ctx.fillRect(startX, y, endX - startX, ELEMENT_HEIGHT);
 
-         // Draw the label
-    this.ctx.fillStyle = 'black';
-    this.ctx.fillText(milestone.label, startX, y - 5);  // Adjust the y-coordinate as needed
+        // Draw the label on the left side of the chart
+        this.ctx.fillStyle = 'black';
+        this.ctx.fillText(milestone.label, 0, y + ELEMENT_HEIGHT / 2 + FONT_SIZE / 2);
 
         // Move to the next row
         y += ELEMENT_HEIGHT + (DEFAULT_ROW_PADDING * 2);
