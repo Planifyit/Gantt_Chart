@@ -72,11 +72,18 @@ static get metadata() {
             myDataBinding: {
                 type: "object",
                 defaultValue: {}
+            },
+            fontSize: {
+                type: "number",
+                defaultValue: 12
+            },
+            elementHeight: {
+                type: "number",
+                defaultValue: 20
             }
         }
     };
-}
-        
+}   
         initializeCanvas(parentElt) {
             this.canvas = document.createElement("canvas");
             parentElt.appendChild(this.canvas);
@@ -95,12 +102,10 @@ static get metadata() {
             this.ctx = this.canvas.getContext("2d");
         }
             
-        onCustomWidgetBeforeUpdate(changedProperties) {
-            this._props = { ...this._props, ...changedProperties };
-            this._props.fontSize = changedProperties.fontSize;
-            this._props.elementHeight = changedProperties.elementHeight;
-        }
-
+  onCustomWidgetBeforeUpdate(changedProperties) {
+    this._props = { ...this._props, ...changedProperties };
+}
+        
         onCustomWidgetAfterUpdate(changedProperties) {
             if ("myDataBinding" in changedProperties) {
                 this._updateData(changedProperties.myDataBinding);
