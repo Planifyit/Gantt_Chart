@@ -115,48 +115,48 @@ static get metadata() {
             }
         }
 
-        _updateData(dataBinding) {
-            console.log('dataBinding:', dataBinding);
-            if (!dataBinding) {
-                console.error('dataBinding is undefined');
-            }
-            if (!dataBinding || !dataBinding.data) {
-                console.error('dataBinding.data is undefined');
-            }
-            
-            if (this._momentReady && this._dateFnsReady) {
-                // Check if dataBinding and dataBinding.data are defined
-                if (dataBinding && Array.isArray(dataBinding.data)) {
-                    // Transform the data into the correct format
-                    const transformedData = dataBinding.data.map(row => {
-                        console.log('row:', row);
-                        // Check if dimensions_0, dimensions_1, measures_0, and measures_1 are defined before trying to access their properties
-                     if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
-    return {
-        id: row.dimensions_0.label,
-        label: row.dimensions_1.label,
-        startDate: moment(row.dimensions_2.id).format('YYYY-MM-DD'),
-        endDate: moment(row.dimensions_3.id).format('YYYY-MM-DD'),
-    };
-}
-                    }).filter(Boolean);  // Filter out any undefined values
-
-                    // Store the milestones
-                    this.milestones = new Map(transformedData.map(milestone => [milestone.id, milestone]));
-
-                    // Calculate the start date of the Gantt chart
-                    this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
-                        const startDate = new Date(milestone.startDate);
-                        return startDate < min ? startDate : min;
-                    }, new Date(Infinity));
-
-                    // Render the chart
-                    this._renderChart();
-                } else {
-                    console.error('Data is not an array:', dataBinding && dataBinding.data);
+_updateData(dataBinding) {
+    console.log('dataBinding:', dataBinding);
+    if (!dataBinding) {
+        console.error('dataBinding is undefined');
+    }
+    if (!dataBinding || !dataBinding.data) {
+        console.error('dataBinding.data is undefined');
+    }
+    
+    if (this._momentReady && this._dateFnsReady) {
+        // Check if dataBinding and dataBinding.data are defined
+        if (dataBinding && Array.isArray(dataBinding.data)) {
+            // Transform the data into the correct format
+            const transformedData = dataBinding.data.map(row => {
+                console.log('row:', row);
+                // Check if dimensions_0, dimensions_1, dimensions_2, and dimensions_3 are defined before trying to access their properties
+                if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
+                    return {
+                        id: row.dimensions_0.label,
+                        label: row.dimensions_1.label,
+                        startDate: moment(row.dimensions_2.id).format('YYYY-MM-DD'),
+                        endDate: moment(row.dimensions_3.id).format('YYYY-MM-DD'),
+                    };
                 }
-            }
+            }).filter(Boolean);  // Filter out any undefined values
+
+            // Store the milestones
+            this.milestones = new Map(transformedData.map(milestone => [milestone.id, milestone]));
+
+            // Calculate the start date of the Gantt chart
+            this.startDate = Array.from(this.milestones.values()).reduce((min, milestone) => {
+                const startDate = new Date(milestone.startDate);
+                return startDate < min ? startDate : min;
+            }, new Date(Infinity));
+
+            // Render the chart
+            this._renderChart();
+        } else {
+            console.error('Data is not an array:', dataBinding && dataBinding.data);
         }
+    }
+}
 
         _renderChart() {
             console.log('_renderChart called');
