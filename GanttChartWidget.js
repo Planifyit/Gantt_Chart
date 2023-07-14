@@ -4,6 +4,7 @@
     const DEFAULT_ROW_PADDING = 10;
     const DEFAULT_WIDTH = 500;
     const SCALE_FACTOR = 2;
+    const DEFAULT_ROW_HEIGHT = 20;
 
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
