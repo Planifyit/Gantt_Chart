@@ -147,25 +147,30 @@ _renderChart() {
         console.log('this._jQuery.fn:', this._jQuery.fn);  // Log this._jQuery.fn to the console
         console.log('this._jQuery:', this._jQuery);  // Log this._jQuery to the console
         const chartElement = this._shadowRoot.getElementById('chart');
-        this._jQuery(chartElement).gantt({
-            source: this.tasks,
-            navigate: 'scroll',
-            scale: 'weeks',
-            maxScale: 'months',
-            minScale: 'days',
-            itemsPerPage: 10,
-            onItemClick: function(data) {
-                alert('Item clicked - show some details');
-            },
-            onAddClick: function(dt, rowId) {
-                alert('Empty space clicked - add an item!');
-            },
-            onRender: function() {
-                console.log('chart rendered');
-            }
+
+        // Use $.ready to ensure that jquery.fn.gantt.js is loaded
+        this._jQuery(document).ready(() => {
+            this._jQuery(chartElement).gantt({
+                source: this.tasks,
+                navigate: 'scroll',
+                scale: 'weeks',
+                maxScale: 'months',
+                minScale: 'days',
+                itemsPerPage: 10,
+                onItemClick: function(data) {
+                    alert('Item clicked - show some details');
+                },
+                onAddClick: function(dt, rowId) {
+                    alert('Empty space clicked - add an item!');
+                },
+                onRender: function() {
+                    console.log('chart rendered');
+                }
+            });
         });
     }
 }
+
 
     }
 
