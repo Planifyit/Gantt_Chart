@@ -46,20 +46,23 @@ constructor() {
         const jQueryUIScript = document.createElement('script');
         jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
         jQueryUIScript.onload = () => {
-            // Load jQuery.Gantt
-            const jQueryGanttScript = document.createElement('script');
-            jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
-            jQueryGanttScript.onload = () => {
-                this._jQueryGanttReady = true;
-                this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
-                this._renderChart();
-            };
-            this._shadowRoot.appendChild(jQueryGanttScript);
+            // Load jQuery.Gantt with a delay
+            setTimeout(() => {
+                const jQueryGanttScript = document.createElement('script');
+                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
+                jQueryGanttScript.onload = () => {
+                    this._jQueryGanttReady = true;
+                    this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
+                    this._renderChart();
+                };
+                this._shadowRoot.appendChild(jQueryGanttScript);
+            }, 1000);  // delay of 1 second
         };
         this._shadowRoot.appendChild(jQueryUIScript);
     };
     this._shadowRoot.appendChild(jQueryScript);
 }
+
 
 
 
