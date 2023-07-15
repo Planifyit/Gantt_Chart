@@ -141,9 +141,11 @@ constructor() {
 }
 
 
-   _renderChart() {
+_renderChart() {
     console.log('_renderChart called');
     if (this._jQueryGanttReady) {
+        console.log('this._jQuery.fn:', this._jQuery.fn);  // Log this._jQuery.fn to the console
+        console.log('this._jQuery:', this._jQuery);  // Log this._jQuery to the console
         const chartElement = this._shadowRoot.getElementById('chart');
         this._jQuery(chartElement).gantt({
             source: this.tasks,
@@ -164,6 +166,7 @@ constructor() {
         });
     }
 }
+
     }
 
     customElements.define('gantt-chart-widget', GanttChartWidget);
