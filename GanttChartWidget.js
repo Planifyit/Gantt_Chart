@@ -24,35 +24,35 @@
     this._props = {};
     this.tasks = [];
 
-    // Load jQuery
-    const jQueryScript = document.createElement('script');
-    jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
-    jQueryScript.onload = () => {
-        // Use noConflict to avoid conflicts with other libraries
-        const jQueryNoConflict = jQuery.noConflict(true);
-        // Load jQuery UI
-        const jQueryUIScript = document.createElement('script');
-        jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
-        jQueryUIScript.onload = () => {
-            // Load jQuery UI CSS
-            const jQueryUICSS = document.createElement('link');
-            jQueryUICSS.rel = 'stylesheet';
-            jQueryUICSS.href = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
-            this._shadowRoot.appendChild(jQueryUICSS);
-            // Load jQuery.Gantt
-            const jQueryGanttScript = document.createElement('script');
-            jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
-            jQueryGanttScript.onload = () => {
-                this._jQueryGanttReady = true;
-                this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
-                // Load jQuery Gantt CSS
-                const jQueryGanttCSS = document.createElement('link');
-                jQueryGanttCSS.rel = 'stylesheet';
-                jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/css/style.css';
-                this._shadowRoot.appendChild(jQueryGanttCSS);
-                this._renderChart();
-            };
-            this._shadowRoot.appendChild(jQueryGanttScript);
+   // Load jQuery
+const jQueryScript = document.createElement('script');
+jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+jQueryScript.onload = () => {
+    console.log('jQuery loaded');
+    // Rest of the code...
+};
+this._shadowRoot.appendChild(jQueryScript);
+
+// Load jQuery UI
+const jQueryUIScript = document.createElement('script');
+jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
+jQueryUIScript.onload = () => {
+    console.log('jQuery UI loaded');
+    // Rest of the code...
+};
+this._shadowRoot.appendChild(jQueryUIScript);
+
+// Load jQuery.Gantt
+const jQueryGanttScript = document.createElement('script');
+jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
+jQueryGanttScript.onload = () => {
+    console.log('jQuery Gantt loaded');
+    this._jQueryGanttReady = true;
+    this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
+    // Rest of the code...
+};
+this._shadowRoot.appendChild(jQueryGanttScript);
+
         };
         this._shadowRoot.appendChild(jQueryUIScript);
     };
