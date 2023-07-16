@@ -153,7 +153,7 @@ _renderChart() {
 
         // Use $.ready to ensure that jquery.fn.gantt.js is loaded
         this._jQuery(document).ready(() => {
-            this._jQuery(chartElement).gantt({
+            jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
                 source: this.tasks,
                 navigate: 'scroll',
                 scale: 'weeks',
@@ -173,6 +173,7 @@ _renderChart() {
         });
     }
 }
+
 
 
 
