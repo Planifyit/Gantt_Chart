@@ -6,6 +6,7 @@
   #chart {
     border: 1px solid #000;
     padding: 10px;
+    padding-right: 20px; /* Add this line */
     margin: 10px;
     width: 100%;  /* Set the width */
     height: 500px;  /* Set the height */
