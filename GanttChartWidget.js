@@ -9,6 +9,7 @@
         margin: 10px;
         width: 100%;  /* Set the width */
         height: 500px;  /* Set the height */
+        overflow: auto;  /* Add this line */
     }
     </style>
     <div id="chart"></div>
