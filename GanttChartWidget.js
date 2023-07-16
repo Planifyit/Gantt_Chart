@@ -3,14 +3,15 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-       #chart {
-        border: 1px solid #000;
-        padding: 10px;
-        margin: 10px;
-        width: 100%;  /* Set the width */
-        height: 500px;  /* Set the height */
-        overflow: auto;  /* Add this line */
-    }
+  #chart {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;  /* Set the width */
+    height: 500px;  /* Set the height */
+    overflow: auto;  /* Add this line */
+    box-sizing: border-box;  /* Add this line */
+}
     </style>
     <div id="chart"></div>
     <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
