@@ -143,7 +143,6 @@ constructor() {
     }
 }
 
-
 _renderChart() {
     console.log('_renderChart called');
     if (this._jQueryGanttReady) {
@@ -154,23 +153,26 @@ _renderChart() {
 
         // Use $.ready to ensure that jquery.fn.gantt.js is loaded
         this._jQuery(document).ready(() => {
-            jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
-                source: this.tasks,
-                navigate: 'scroll',
-                scale: 'weeks',
-                maxScale: 'months',
-                minScale: 'days',
-                itemsPerPage: 10,
-                onItemClick: function(data) {
-                    alert('Item clicked - show some details');
-                },
-                onAddClick: function(dt, rowId) {
-                    alert('Empty space clicked - add an item!');
-                },
-                onRender: function() {
-                    console.log('chart rendered');
-                }
-            });
+            // Add a delay before creating the chart
+            setTimeout(() => {
+                jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
+                    source: this.tasks,
+                    navigate: 'scroll',
+                    scale: 'weeks',
+                    maxScale: 'months',
+                    minScale: 'days',
+                    itemsPerPage: 10,
+                    onItemClick: function(data) {
+                        alert('Item clicked - show some details');
+                    },
+                    onAddClick: function(dt, rowId) {
+                        alert('Empty space clicked - add an item!');
+                    },
+                    onRender: function() {
+                        console.log('chart rendered');
+                    }
+                });
+            }, 100);  // delay of 100 milliseconds
         });
     }
 }
