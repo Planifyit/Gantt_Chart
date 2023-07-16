@@ -13,6 +13,19 @@
     overflow: auto;  /* Add this line */
     box-sizing: border-box;  /* Add this line */
 }
+
+
+    .fn-gantt .fn-content {
+        overflow: visible !important;
+    }
+    .fn-gantt .day, .fn-gantt .week, .fn-gantt .month {
+        border: none !important;
+    }
+    .fn-gantt .fn-chart {
+        width: auto !important;
+    }
+
+
     </style>
     <div id="chart"></div>
     <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
@@ -37,7 +50,7 @@ constructor() {
     // Load jQuery Gantt CSS
     const jQueryGanttCSS = document.createElement('link');
     jQueryGanttCSS.rel = 'stylesheet';
-    jQueryGanttCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/jQuery.Gantt/1.1.0/style.css';
+    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
     this._shadowRoot.appendChild(jQueryGanttCSS);
 
     // Load jQuery
