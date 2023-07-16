@@ -3,12 +3,12 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-  #chart {
+   #chart {
     border: 1px solid #000;
     padding: 10px;
-    padding-right: 20px; /* Add this line */
     margin: 10px;
     width: 100%;  /* Set the width */
+    max-width: 95%; /* Add this line */
     height: 500px;  /* Set the height */
     overflow: auto;  /* Add this line */
     box-sizing: border-box;  /* Add this line */
