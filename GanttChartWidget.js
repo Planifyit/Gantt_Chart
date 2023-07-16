@@ -37,7 +37,7 @@ constructor() {
     // Load jQuery Gantt CSS
     const jQueryGanttCSS = document.createElement('link');
     jQueryGanttCSS.rel = 'stylesheet';
-    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
+    jQueryGanttCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/jQuery.Gantt/1.1.0/style.css';
     this._shadowRoot.appendChild(jQueryGanttCSS);
 
     // Load jQuery
