@@ -40,13 +40,13 @@ constructor() {
 
     // Load jQuery
     const jQueryScript = document.createElement('script');
-    jQueryScript.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
+    jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
     jQueryScript.onload = () => {
         // Use noConflict to avoid conflicts with other libraries
         const jQueryNoConflict = jQuery.noConflict(true);
         // Load jQuery UI
         const jQueryUIScript = document.createElement('script');
-        jQueryUIScript.src = 'https://code.jquery.com/ui/1.12.1/jquery-ui.min.js';
+        jQueryUIScript.src = 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js';
         jQueryUIScript.onload = () => {
             // Load jQuery.Gantt with a delay
             setTimeout(() => {
