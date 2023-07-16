@@ -41,7 +41,7 @@ constructor() {
 
     // Load jQuery
     const jQueryScript = document.createElement('script');
-    jQueryScript.src = 'https://code.jquery.com/jquery-3.6.0.min.js';
+    jQueryScript.src = 'https://code.jquery.com/jquery-1.12.4.min.js';
     jQueryScript.onload = () => {
         // Use noConflict to avoid conflicts with other libraries
         const jQueryNoConflict = jQuery.noConflict(true);
@@ -54,6 +54,7 @@ constructor() {
                 const jQueryGanttScript = document.createElement('script');
                 jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
                 jQueryGanttScript.onload = () => {
+                        console.log(jQuery.fn.gantt); 
                     this._jQueryGanttReady = true;
                     this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
                     this._renderChart();
