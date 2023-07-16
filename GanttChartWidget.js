@@ -148,6 +148,7 @@ _renderChart() {
     if (this._jQueryGanttReady) {
         console.log('this._jQuery.fn:', this._jQuery.fn);  // Log this._jQuery.fn to the console
         console.log('this._jQuery:', this._jQuery);  // Log this._jQuery to the console
+        console.log('jQuery.fn.gantt:', jQuery.fn.gantt);  // Log jQuery.fn.gantt to the console
         const chartElement = this._shadowRoot.getElementById('chart');
 
         // Use $.ready to ensure that jquery.fn.gantt.js is loaded
@@ -172,6 +173,7 @@ _renderChart() {
         });
     }
 }
+
 
 
     }
