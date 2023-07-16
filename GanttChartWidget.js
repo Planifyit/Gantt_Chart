@@ -160,10 +160,10 @@ _renderChart() {
                 jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
                     source: this.tasks,
                     navigate: 'scroll',
-                    scale: 'weeks',
+                    scale: 'days',
                     maxScale: 'months',
                     minScale: 'days',
-                    itemsPerPage: 10,
+                    itemsPerPage: 5,
                     onItemClick: function(data) {
                         alert('Item clicked - show some details');
                     },
