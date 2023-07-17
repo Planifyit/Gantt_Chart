@@ -28,10 +28,10 @@ constructor() {
     this.tasks = [];
 
     // Load jQuery UI CSS
-    /*  const jQueryUICSS = document.createElement('link');
+      const jQueryUICSS = document.createElement('link');
     jQueryUICSS.rel = 'stylesheet';
-    jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-    this._shadowRoot.appendChild(jQueryUICSS);*/
+    jQueryUICSS.href = 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css';
+    this._shadowRoot.appendChild(jQueryUICSS);
 
     // Load jQuery Gantt CSS
     const jQueryGanttCSS = document.createElement('link');
