@@ -83,7 +83,7 @@ constructor() {
             // Load jQuery.Gantt with a delay
             setTimeout(() => {
                 const jQueryGanttScript = document.createElement('script');
-                jQueryGanttScript.src = 'http://rawgithub.com/taitems/jQuery.Gantt/master/js/jquery.fn.gantt.js';
+                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
                 jQueryGanttScript.onload = () => {
                         console.log(jQuery.fn.gantt); 
                     this._jQueryGanttReady = true;
