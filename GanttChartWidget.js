@@ -2,9 +2,6 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-        @import url('https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css');
-        @import url('https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css');
-
         #chart {
             border: 1px solid #000;
             padding: 10px;
@@ -44,6 +41,18 @@
                 }
             ];
 
+ // Load jQuery UI CSS
+    const jQueryUICSS = document.createElement('link');
+    jQueryUICSS.rel = 'stylesheet';
+    jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+    this._shadowRoot.appendChild(jQueryUICSS);
+
+    // Load jQuery Gantt CSS
+    const jQueryGanttCSS = document.createElement('link');
+    jQueryGanttCSS.rel = 'stylesheet';
+    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
+    this._shadowRoot.appendChild(jQueryGanttCSS);
+            
             // Load jQuery
             const jQueryScript = document.createElement('script');
             jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
@@ -87,5 +96,5 @@
         }
     }
 
-    customElements.define('gantt-chart-widget', GanttChartWidget);
+    customElements.define('com-sap-sample-ganttchart', GanttChartWidget);
 })();
