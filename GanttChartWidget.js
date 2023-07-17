@@ -10,6 +10,7 @@
   
 }
 
+.fn-gantt .row {  height: 72px  !important;    }
 
 .fn-gantt .dataPanel
 {
