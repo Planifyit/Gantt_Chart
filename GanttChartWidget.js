@@ -29,18 +29,15 @@ constructor() {
     this._props = {};
     this.tasks = [];
 
-
-
     // Load Frappe Gantt
-const FrappeGanttScript = document.createElement('script');
-FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt';
-FrappeGanttScript.onload = () => {
-    // Frappe Gantt is now loaded and can be used.
-    this._FrappeGanttReady = true;
-    this._renderChart();
-};
-this._shadowRoot.appendChild(FrappeGanttScript);
-    
+    const FrappeGanttScript = document.createElement('script');
+    FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt';
+    FrappeGanttScript.onload = () => {
+        // Frappe Gantt is now loaded and can be used.
+        this._FrappeGanttReady = true;
+    };
+    this._shadowRoot.appendChild(FrappeGanttScript);
+}
 
     
     // Load jQuery
@@ -149,14 +146,11 @@ _updateData(dataBinding) {
         
 _renderChart() {
     console.log('_renderChart called');
-    const chartElement = this._shadowRoot.getElementById('chart');
+    if (this._FrappeGanttReady) {
+        const chartElement = this._shadowRoot.getElementById('chart');
 
-    // Load Frappe Gantt
-    const FrappeGanttScript = document.createElement('script');
-    FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
-    FrappeGanttScript.onload = () => {
         // Create a new Gantt chart
-        const gantt = new Gantt(chartElement, this.tasks, {
+        const gantt = new window.Gantt(chartElement, this.tasks, {
             on_click: function(task) {
                 console.log(task);
             },
@@ -181,8 +175,7 @@ _renderChart() {
                 `;
             }
         });
-    };
-    this._shadowRoot.appendChild(FrappeGanttScript);
+    }
 }
 
 
