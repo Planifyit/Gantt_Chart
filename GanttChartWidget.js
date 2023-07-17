@@ -3,7 +3,7 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-   #chart {
+  /* #chart {
     border: 1px solid #000;
   //  padding: 10px;
   //  margin: 10px;
@@ -12,7 +12,7 @@
  //   height: 500px;  /* Set the height */
   //  overflow: auto;  /* Add this line */
   //  box-sizing: border-box;  /* Add this line */
-}
+} 
 
 
     .fn-gantt .fn-content {
@@ -31,7 +31,7 @@
 
     .fn-gantt .row.header {
         width: auto !important;  /* Override the width */
-    }
+    } */
 
 
     </style>
