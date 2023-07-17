@@ -4,18 +4,7 @@
     tmpl.innerHTML = `
     <style>
 
-.gantt {
-        width: 100%;
-        margin: 20px auto;
-        border: 14px solid #ddd;
-        position: relative;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-            border-radius: 6px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-            box-sizing: border-box;
-    }
+
     .bar .fn-label{
         display:none;
     }
