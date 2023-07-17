@@ -21,7 +21,8 @@
 .fn-gantt .rightPanel .month, .fn-gantt .rightPanel .year { 
 width: 72px !important;
    }
-
+.fn-gantt .ganttRed 
+{  top: 99px; left:72px; width: 21.7593%;}
     </style>
     <div id="chart"></div>
     <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
