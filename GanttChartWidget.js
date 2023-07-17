@@ -22,12 +22,7 @@ overflow: hidden;   }
 .fn-gantt .rightPanel .month, .fn-gantt .rightPanel .year { 
 width: 72px !important;
    }
-.fn-gantt .ganttRed { 
-    top: 99px;
-    left: 72px;
-    width: 21.7593%;
 
-}
     </style>
     <div id="chart"></div>
     <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
@@ -138,12 +133,35 @@ constructor() {
                 return {
                     name: row.dimensions_0.label,
                     desc: row.dimensions_1.label,
-                    values: [{
-                        from: "/Date(" + startDate.getTime() + ")/",
+                    values: [
+                      /*  {from: "/Date(" + startDate.getTime() + ")/",
                         to: "/Date(" + endDate.getTime() + ")/",
                         label: row.dimensions_1.label,
-                        customClass: "ganttRed"
-                    }]
+                        customClass: "ganttRed" */
+                            
+             {
+                        name: "Task 1",
+                        desc: "Description 1",
+                        values: [{
+                            from: "/Date(1640995200000)/",
+                            to: "/Date(1641081600000)/",
+                            label: "Task 1",
+                            customClass: "ganttRed"
+                        }]
+                    },
+                    {
+                        name: "Task 2",
+                        desc: "Description 2",
+                        values: [{
+                            from: "/Date(1641081600000)/",
+                            to: "/Date(1641168000000)/",
+                            label: "Task 2",
+                            customClass: "ganttRed"
+                        }]
+                    }
+                            
+                            
+                            ]
                 };
             }
         }).filter(Boolean);  // Filter out any null values
