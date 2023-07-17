@@ -1,68 +1,96 @@
+
 (function() {
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-        #chart {
-            border: 1px solid #000;
-            padding: 10px;
-            margin: 10px;
-            width: 100%;
-            max-width: 95%;
-            height: 500px;
-            overflow: auto;
-            box-sizing: border-box;
-        }
+   #chart {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;  /* Set the width */
+    max-width: 95%; /* Add this line */
+    height: 500px;  /* Set the height */
+    overflow: auto;  /* Add this line */
+    box-sizing: border-box;  /* Add this line */
+}
+
+
+    .fn-gantt .fn-content {
+        overflow: visible !important;
+    }
+    .fn-gantt .day, .fn-gantt .week, .fn-gantt .month {
+        border: none !important;
+    }
+    .fn-gantt .fn-chart {
+        width: auto !important;
+    }
+  
+   .fn-gantt .dataPanel {
+        width: auto !important;  /* Override the width */
+    }
+
+
     </style>
     <div id="chart"></div>
+    <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
+
     `;
 
     class GanttChartWidget extends HTMLElement {
-        constructor() {
-            super();
-            this._shadowRoot = this.attachShadow({mode: 'open'});
-            this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
-            this._props = {};
-            this.tasks = [];
+constructor() {
+    super();
+    console.log('Constructor called');
+    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    this._props = {};
+    this.tasks = [];
 
-            // Load jQuery UI CSS
-            const jQueryUICSS = document.createElement('link');
-            jQueryUICSS.rel = 'stylesheet';
-            jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-            document.head.appendChild(jQueryUICSS);
+    // Load jQuery UI CSS
+    const jQueryUICSS = document.createElement('link');
+    jQueryUICSS.rel = 'stylesheet';
+    jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+    this._shadowRoot.appendChild(jQueryUICSS);
 
-            // Load jQuery Gantt CSS
-            const jQueryGanttCSS = document.createElement('link');
-            jQueryGanttCSS.rel = 'stylesheet';
-            jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
-            document.head.appendChild(jQueryGanttCSS);
+    // Load jQuery Gantt CSS
+    const jQueryGanttCSS = document.createElement('link');
+    jQueryGanttCSS.rel = 'stylesheet';
+    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
+    this._shadowRoot.appendChild(jQueryGanttCSS);
 
-            // Load jQuery
-            const jQueryScript = document.createElement('script');
-            jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
-            jQueryScript.onload = () => {
-                // Use noConflict to avoid conflicts with other libraries
-                const jQueryNoConflict = jQuery.noConflict(true);
-                // Load jQuery UI
-                const jQueryUIScript = document.createElement('script');
-                jQueryUIScript.src = 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js';
-                jQueryUIScript.onload = () => {
-                    // Load jQuery.Gantt with a delay
-                    setTimeout(() => {
-                        const jQueryGanttScript = document.createElement('script');
-                        jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
-                        jQueryGanttScript.onload = () => {
-                            this._jQueryGanttReady = true;
-                            this._jQuery = jQueryNoConflict;
-                            this._renderChart();
-                        };
-                        document.body.appendChild(jQueryGanttScript);
-                    }, 1000);
+    // Load jQuery
+    const jQueryScript = document.createElement('script');
+    jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
+    jQueryScript.onload = () => {
+        // Use noConflict to avoid conflicts with other libraries
+        const jQueryNoConflict = jQuery.noConflict(true);
+        // Load jQuery UI
+        const jQueryUIScript = document.createElement('script');
+        jQueryUIScript.src = 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js';
+        jQueryUIScript.onload = () => {
+            // Load jQuery.Gantt with a delay
+            setTimeout(() => {
+                const jQueryGanttScript = document.createElement('script');
+                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
+                jQueryGanttScript.onload = () => {
+                        console.log(jQuery.fn.gantt); 
+                    this._jQueryGanttReady = true;
+                    this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
+                    this._renderChart();
                 };
-                document.body.appendChild(jQueryUIScript);
-            };
-            document.body.appendChild(jQueryScript);
-        }
- // GanttChart methods
+                this._shadowRoot.appendChild(jQueryGanttScript);
+            }, 1000);  // delay of 1 second
+        };
+        this._shadowRoot.appendChild(jQueryUIScript);
+    };
+    this._shadowRoot.appendChild(jQueryScript);
+}
+
+
+
+
+
+
+        // GanttChart methods
         static get metadata() {
             console.log('metadata called');
             return {
