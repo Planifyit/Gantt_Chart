@@ -29,6 +29,10 @@
         width: auto !important;  /* Override the width */
     }
 
+    .fn-gantt .row.header {
+        width: auto !important;  /* Override the width */
+    }
+
 
     </style>
     <div id="chart"></div>
