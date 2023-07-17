@@ -29,15 +29,14 @@ constructor() {
     this._props = {};
     this.tasks = [];
 
-    // Load Frappe Gantt
-    const FrappeGanttScript = document.createElement('script');
-    FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt';
-    FrappeGanttScript.onload = () => {
-        // Frappe Gantt is now loaded and can be used.
-        this._FrappeGanttReady = true;
-    };
-    this._shadowRoot.appendChild(FrappeGanttScript);
-}
+// Load Frappe Gantt
+const FrappeGanttScript = document.createElement('script');
+FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
+FrappeGanttScript.onload = () => {
+    // Frappe Gantt is now loaded and can be used.
+    this._FrappeGanttReady = true;
+};
+this._shadowRoot.appendChild(FrappeGanttScript);
 
 
         // GanttChart methods
