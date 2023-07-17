@@ -21,53 +21,27 @@
     <a href="https://www.linkedin.com/company/planifyit" target="_blank" class="follow-link">Follow us on Linkedin - Planifyit</a>
 
     `;
-       
+
     class GanttChartWidget extends HTMLElement {
-        constructor() {
-            super();
-            console.log('Constructor called');
-            this._shadowRoot = this.attachShadow({mode: 'open'});
-            this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
-            this._props = {};
-            this.tasks = [];
-
-            // Load Frappe Gantt
-            const FrappeGanttScript = document.createElement('script');
-            FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
-            FrappeGanttScript.onload = () => {
-                // Frappe Gantt is now loaded and can be used.
-                this._FrappeGanttReady = true;
-            };
-            this._shadowRoot.appendChild(FrappeGanttScript);
-        }
+constructor() {
+    super();
+    console.log('Constructor called');
+    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    this._props = {};
+    this.tasks = [];
 
 
-    // Load jQuery
-    const jQueryScript = document.createElement('script');
-    jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
-    jQueryScript.onload = () => {
-        // Use noConflict to avoid conflicts with other libraries
-        const jQueryNoConflict = jQuery.noConflict(true);
-        // Load jQuery UI
-        const jQueryUIScript = document.createElement('script');
-        jQueryUIScript.src = 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js';
-        jQueryUIScript.onload = () => {
-            // Load jQuery.Gantt with a delay
-            setTimeout(() => {
-                const jQueryGanttScript = document.createElement('script');
-                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
-                jQueryGanttScript.onload = () => {
-                        console.log(jQuery.fn.gantt); 
-                    this._jQueryGanttReady = true;
-                    this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
-                    this._renderChart();
-                };
-                this._shadowRoot.appendChild(jQueryGanttScript);
-            }, 1000);  // delay of 1 second
-        };
-        this._shadowRoot.appendChild(jQueryUIScript);
-    };
-    this._shadowRoot.appendChild(jQueryScript);
+    // Load Frappe Gantt
+const FrappeGanttScript = document.createElement('script');
+FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
+FrappeGanttScript.onload = () => {
+    // Frappe Gantt is now loaded and can be used.
+    this._FrappeGanttReady = true;
+};
+this._shadowRoot.appendChild(FrappeGanttScript);
+
+ 
 }
 
 
