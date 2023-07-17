@@ -54,20 +54,21 @@
             this._shadowRoot.appendChild(jQueryScript);
         }
 
-        connectedCallback() {
-            console.log('connectedCallback called');
-            // Load jQuery UI CSS
-            const jQueryUICSS = document.createElement('link');
-            jQueryUICSS.rel = 'stylesheet';
-            jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-            this._shadowRoot.appendChild(jQueryUICSS);
+  connectedCallback() {
+    console.log('connectedCallback called');
+    // Load jQuery UI CSS
+    const jQueryUICSS = document.createElement('link');
+    jQueryUICSS.rel = 'stylesheet';
+    jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+    document.head.appendChild(jQueryUICSS);  // Append to document head
 
-            // Load jQuery Gantt CSS
-            const jQueryGanttCSS = document.createElement('link');
-            jQueryGanttCSS.rel = 'stylesheet';
-            jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
-            this._shadowRoot.appendChild(jQueryGanttCSS);
-        }
+    // Load jQuery Gantt CSS
+    const jQueryGanttCSS = document.createElement('link');
+    jQueryGanttCSS.rel = 'stylesheet';
+    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
+    document.head.appendChild(jQueryGanttCSS);  // Append to document head
+}
+
 
            // GanttChart methods
         static get metadata() {
