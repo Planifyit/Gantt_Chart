@@ -28,16 +28,16 @@ constructor() {
     this.tasks = [];
 
     // Load jQuery UI CSS
-    const jQueryUICSS = document.createElement('link');
+    /*  const jQueryUICSS = document.createElement('link');
     jQueryUICSS.rel = 'stylesheet';
     jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
-    this._shadowRoot.appendChild(jQueryUICSS);
+    this._shadowRoot.appendChild(jQueryUICSS);*/
 
     // Load jQuery Gantt CSS
-    /*const jQueryGanttCSS = document.createElement('link');
+    const jQueryGanttCSS = document.createElement('link');
     jQueryGanttCSS.rel = 'stylesheet';
     jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
-    this._shadowRoot.appendChild(jQueryGanttCSS);*/
+    this._shadowRoot.appendChild(jQueryGanttCSS);
 
     // Load jQuery
     const jQueryScript = document.createElement('script');
