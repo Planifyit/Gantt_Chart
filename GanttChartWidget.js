@@ -124,10 +124,10 @@ _renderChart() {
     console.log('_renderChart called');
     console.log('Tasks:', this.tasks);
     if (this._FrappeGanttReady) {
-        const chartElement = this.getElementById('chart');
+        const chartElement = this.shadowRoot.getElementById('chart');
 
         // Create a new Gantt chart
- const gantt = new window.Gantt(chartElement, this.tasks, {
+        const gantt = new window.Gantt(chartElement, this.tasks, {
             on_click: function(task) {
                 console.log(task);
             },
@@ -152,9 +152,10 @@ _renderChart() {
                 `;
             }
         });
-         console.log('Gantt:', gantt);  // Log the gantt object to the console
+        console.log('Gantt:', gantt);  // Log the gantt object to the console
     }
 }
+
 
 
 
