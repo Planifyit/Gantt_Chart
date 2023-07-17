@@ -7,12 +7,14 @@
     border: 1px solid #000;
     padding: 10px;
     margin: 10px;
-  /*  width: 100%; 
-    max-width: 95%; 
-    height: 500px; 
-    overflow: auto;  
-    box-sizing: border-box;  */
+    width: 100%;  /* Set the width */
+    max-width: 95%; /* Add this line */
+    height: 500px;  /* Set the height */
+    overflow: auto;  /* Add this line */
+    box-sizing: border-box;  /* Add this line */
 }
+
+
 
     </style>
     <div id="chart"></div>
@@ -29,14 +31,49 @@ constructor() {
     this._props = {};
     this.tasks = [];
 
-// Load Frappe Gantt
-const FrappeGanttScript = document.createElement('script');
-FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
-FrappeGanttScript.onload = () => {
-    // Frappe Gantt is now loaded and can be used.
-    this._FrappeGanttReady = true;
-};
-this._shadowRoot.appendChild(FrappeGanttScript);
+    // Load jQuery UI CSS
+    const jQueryUICSS = document.createElement('link');
+    jQueryUICSS.rel = 'stylesheet';
+    jQueryUICSS.href = 'https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css';
+    this._shadowRoot.appendChild(jQueryUICSS);
+
+    // Load jQuery Gantt CSS
+    const jQueryGanttCSS = document.createElement('link');
+    jQueryGanttCSS.rel = 'stylesheet';
+    jQueryGanttCSS.href = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css';
+    this._shadowRoot.appendChild(jQueryGanttCSS);
+
+    // Load jQuery
+    const jQueryScript = document.createElement('script');
+    jQueryScript.src = 'https://code.jquery.com/jquery-3.7.0.min.js';
+    jQueryScript.onload = () => {
+        // Use noConflict to avoid conflicts with other libraries
+        const jQueryNoConflict = jQuery.noConflict(true);
+        // Load jQuery UI
+        const jQueryUIScript = document.createElement('script');
+        jQueryUIScript.src = 'https://code.jquery.com/ui/1.13.2/jquery-ui.min.js';
+        jQueryUIScript.onload = () => {
+            // Load jQuery.Gantt with a delay
+            setTimeout(() => {
+                const jQueryGanttScript = document.createElement('script');
+                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
+                jQueryGanttScript.onload = () => {
+                        console.log(jQuery.fn.gantt); 
+                    this._jQueryGanttReady = true;
+                    this._jQuery = jQueryNoConflict;  // Store the noConflict version of jQuery
+                    this._renderChart();
+                };
+                this._shadowRoot.appendChild(jQueryGanttScript);
+            }, 1000);  // delay of 1 second
+        };
+        this._shadowRoot.appendChild(jQueryUIScript);
+    };
+    this._shadowRoot.appendChild(jQueryScript);
+}
+
+
+
+
 
 
         // GanttChart methods
@@ -67,10 +104,10 @@ this._shadowRoot.appendChild(FrappeGanttScript);
             }
         }
 
-_updateData(dataBinding) {
+   _updateData(dataBinding) {
     console.log('_updateData called');
     if (dataBinding && Array.isArray(dataBinding.data)) {
-        this.tasks = dataBinding.data.map((row, index) => {
+        this.tasks = dataBinding.data.map(row => {
             if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
                 const startDate = new Date(row.dimensions_2.id);
                 const endDate = new Date(row.dimensions_3.id);
@@ -86,19 +123,21 @@ _updateData(dataBinding) {
                 }
                 console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
                 return {
-                    id: 'Task ' + (index + 1),  // Unique id of task
-                    name: row.dimensions_0.label,  // Name of task
-                    start: startDate.toISOString().split('T')[0],  // Start date of task
-                    end: endDate.toISOString().split('T')[0],  // End date of task
-                    progress: 0,  // Progress of task in percent
-                    dependencies: ''  // Dependencies of task
+                    name: row.dimensions_0.label,
+                    desc: row.dimensions_1.label,
+                    values: [{
+                        from: "/Date(" + startDate.getTime() + ")/",
+                        to: "/Date(" + endDate.getTime() + ")/",
+                        label: row.dimensions_1.label,
+                        customClass: "ganttRed"
+                    }]
                 };
             }
         }).filter(Boolean);  // Filter out any null values
 
         // Check if all tasks have valid start and end dates
         for (let task of this.tasks) {
-            if (!task.start || !task.end) {
+            if (!task.values || task.values.length === 0 || !task.values[0].from || !task.values[0].to) {
                 console.error('Task with null start or end date:', task);
             }
         }
@@ -109,37 +148,36 @@ _updateData(dataBinding) {
     }
 }
 
-        
 _renderChart() {
     console.log('_renderChart called');
-    if (this._FrappeGanttReady) {
+    if (this._jQueryGanttReady) {
+        console.log('this._jQuery.fn:', this._jQuery.fn);  // Log this._jQuery.fn to the console
+        console.log('this._jQuery:', this._jQuery);  // Log this._jQuery to the console
+        console.log('jQuery.fn.gantt:', jQuery.fn.gantt);  // Log jQuery.fn.gantt to the console
         const chartElement = this._shadowRoot.getElementById('chart');
 
-        // Create a new Gantt chart
-        const gantt = new window.Gantt(chartElement, this.tasks, {
-            on_click: function(task) {
-                console.log(task);
-            },
-            on_date_change: function(task, start, end) {
-                console.log(task, start, end);
-            },
-            on_progress_change: function(task, progress) {
-                console.log(task, progress);
-            },
-            on_view_change: function(mode) {
-                console.log(mode);
-            },
-            custom_popup_html: function(task) {
-                // the task object will contain the updated
-                // dates and progress value
-                return `
-                    <div class="details-container">
-                        <h5>${task.name}</h5>
-                        <p>Expected to finish by ${task.end}</p>
-                        <p>${task.progress}% completed!</p>
-                    </div>
-                `;
-            }
+        // Use $.ready to ensure that jquery.fn.gantt.js is loaded
+        this._jQuery(document).ready(() => {
+            // Add a delay before creating the chart
+            setTimeout(() => {
+                jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
+                    source: this.tasks,
+                    navigate: 'scroll',
+                    scale: 'days',
+                    maxScale: 'months',
+                    minScale: 'days',
+                    itemsPerPage: 5,
+                    onItemClick: function(data) {
+                        alert('Item clicked - show some details');
+                    },
+                    onAddClick: function(dt, rowId) {
+                        alert('Empty space clicked - add an item!');
+                    },
+                    onRender: function() {
+                        console.log('chart rendered');
+                    }
+                });
+            }, 100);  // delay of 100 milliseconds
         });
     }
 }
