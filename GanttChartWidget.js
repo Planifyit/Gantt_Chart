@@ -3,44 +3,31 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
+   #chart {
+    border: 1px solid #000;
+    padding: 10px;
+    margin: 10px;
+    width: 100%;  /* Set the width */
+    max-width: 95%; /* Add this line */
+    height: 500px;  /* Set the height */
+    overflow: auto;  /* Add this line */
+    box-sizing: border-box;  /* Add this line */
+}
 
-
-    .bar .fn-label{
-        display:none;
-    }
-    .gantt:after {
-        content: ".";
-        visibility: hidden;
-        display: block;
-        height: 0;
-        clear: both;
-    }
-
-    .fn-gantt {
-        width: 100%;
-    }
-
-    .fn-gantt *,
-    .fn-gantt *:after,
-    .fn-gantt *:before {
-    -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-            box-sizing: border-box;
-    }
 
     .fn-gantt .fn-content {
-        overflow: hidden;
-        position: relative;
-        width: 100%;
+        overflow: visible !important;
     }
-
-    .fn-gantt .row {
-        float: left;
-        height: 24px;
-        line-height: 24px;
-        margin: 0;
+    .fn-gantt .day, .fn-gantt .week, .fn-gantt .month {
+        border: none !important;
     }
-
+    .fn-gantt .fn-chart {
+        width: auto !important;
+    }
+  
+   .fn-gantt .dataPanel {
+        width: auto !important;  /* Override the width */
+    }
 
 
     </style>
@@ -83,7 +70,7 @@ constructor() {
             // Load jQuery.Gantt with a delay
             setTimeout(() => {
                 const jQueryGanttScript = document.createElement('script');
-                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/mbielanczuk/jQuery.Gantt/js/jquery.fn.gantt.js';
+                jQueryGanttScript.src = 'https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/js/jquery.fn.gantt.js';
                 jQueryGanttScript.onload = () => {
                         console.log(jQuery.fn.gantt); 
                     this._jQueryGanttReady = true;
