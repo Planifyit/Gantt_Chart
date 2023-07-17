@@ -3,35 +3,7 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-  /* #chart {
-    border: 1px solid #000;
-  //  padding: 10px;
-  //  margin: 10px;
- //   width: 100%;  /* Set the width */
-   // max-width: 95%; /* Add this line */
- //   height: 500px;  /* Set the height */
-  //  overflow: auto;  /* Add this line */
-  //  box-sizing: border-box;  /* Add this line */
-} 
 
-
-    .fn-gantt .fn-content {
-        overflow: visible !important;
-    }
-    .fn-gantt .day, .fn-gantt .week, .fn-gantt .month {
-        border: none !important;
-    }
-    .fn-gantt .fn-chart {
-        width: auto !important;
-    }
-  
-   .fn-gantt .dataPanel {
-        width: auto !important;  /* Override the width */
-    }
-
-    .fn-gantt .row.header {
-        width: auto !important;  /* Override the width */
-    } */
 
 
     </style>
