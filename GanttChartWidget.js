@@ -22,22 +22,23 @@
 
     class GanttChartWidget extends HTMLElement {
 constructor() {
-   super();
+ super();
     console.log('Constructor called');
-    this.appendChild(tmpl.content.cloneNode(true));
+    this._shadowRoot = this.attachShadow({mode: 'open'});
+    this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
     this._props = {};
     this.tasks = [];
 
 
 
-    // Load Frappe Gantt
+   // Load Frappe Gantt
     const FrappeGanttScript = document.createElement('script');
     FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
     FrappeGanttScript.onload = () => {
         // Frappe Gantt is now loaded and can be used.
         this._FrappeGanttReady = true;
 };
-    this.appendChild(FrappeGanttScript);
+ this._shadowRoot.appendChild(FrappeGanttScript);
 
  
 }
