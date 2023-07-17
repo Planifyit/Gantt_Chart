@@ -22,22 +22,22 @@
 
     class GanttChartWidget extends HTMLElement {
 constructor() {
-    super();
+   super();
     console.log('Constructor called');
-    this._shadowRoot = this.attachShadow({mode: 'open'});
-    this._shadowRoot.appendChild(tmpl.content.cloneNode(true));
+    this.appendChild(tmpl.content.cloneNode(true));
     this._props = {};
     this.tasks = [];
 
 
+
     // Load Frappe Gantt
-const FrappeGanttScript = document.createElement('script');
-FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
-FrappeGanttScript.onload = () => {
-    // Frappe Gantt is now loaded and can be used.
-    this._FrappeGanttReady = true;
+    const FrappeGanttScript = document.createElement('script');
+    FrappeGanttScript.src = 'https://unpkg.com/frappe-gantt@0.5.0/dist/frappe-gantt.min.js';
+    FrappeGanttScript.onload = () => {
+        // Frappe Gantt is now loaded and can be used.
+        this._FrappeGanttReady = true;
 };
-this._shadowRoot.appendChild(FrappeGanttScript);
+    this.appendChild(FrappeGanttScript);
 
  
 }
@@ -124,10 +124,10 @@ _renderChart() {
     console.log('_renderChart called');
     console.log('Tasks:', this.tasks);
     if (this._FrappeGanttReady) {
-        const chartElement = this._shadowRoot.getElementById('chart');
+        const chartElement = this.getElementById('chart');
 
         // Create a new Gantt chart
-        const gantt = new window.Gantt(chartElement, this.tasks, {
+ const gantt = new window.Gantt(chartElement, this.tasks, {
             on_click: function(task) {
                 console.log(task);
             },
