@@ -24,6 +24,10 @@
     .fn-gantt .fn-chart {
         width: auto !important;
     }
+  
+   .fn-gantt .dataPanel {
+        width: auto !important;  /* Override the width */
+    }
 
 
     </style>
