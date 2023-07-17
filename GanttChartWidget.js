@@ -67,15 +67,17 @@ this._shadowRoot.appendChild(FrappeGanttScript);
             this._props = { ...this._props, ...changedProperties };
         }
 
-        onCustomWidgetAfterUpdate(changedProperties) {
-            console.log('onCustomWidgetAfterUpdate called');
-            if ("myDataBinding" in changedProperties) {
-                const dataBinding = changedProperties.myDataBinding;
-                if (dataBinding.state === 'success') {
-                    this._updateData(dataBinding);
-                }
-            }
+   onCustomWidgetAfterUpdate(changedProperties) {
+    console.log('onCustomWidgetAfterUpdate called');
+    if ("myDataBinding" in changedProperties) {
+        const dataBinding = changedProperties.myDataBinding;
+        if (dataBinding.state === 'success') {
+            this._updateData(dataBinding);
+            this._renderChart();
         }
+    }
+}
+
 
 _updateData(dataBinding) {
     console.log('_updateData called');
@@ -122,6 +124,7 @@ _updateData(dataBinding) {
 
 _renderChart() {
     console.log('_renderChart called');
+    console.log('Tasks:', this.tasks);
     if (this._FrappeGanttReady) {
         const chartElement = this._shadowRoot.getElementById('chart');
 
