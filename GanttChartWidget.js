@@ -10,9 +10,7 @@
   
 }
 
- .fn-gantt .leftPanel .spacer {
-        width: 96px !important;
-    }
+
 .fn-gantt .dataPanel
 {
         width: 216px !important;
