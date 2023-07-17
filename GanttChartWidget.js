@@ -2,6 +2,9 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
+        @import url('https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css');
+        @import url('https://cdn.jsdelivr.net/gh/taitems/jQuery.Gantt@master/css/style.css');
+
         #chart {
             border: 1px solid #000;
             padding: 10px;
