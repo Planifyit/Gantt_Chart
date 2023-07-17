@@ -3,17 +3,15 @@
     let tmpl = document.createElement('template');
     tmpl.innerHTML = `
     <style>
-   #chart {
+  #chart {
     border: 1px solid #000;
     padding: 10px;
     margin: 10px;
-    width: 100%;  /* Set the width */
-    max-width: 95%; /* Add this line */
+    width: 1000px;  /* Set a specific width */
     height: 500px;  /* Set the height */
-    overflow: auto;  /* Add this line */
-    box-sizing: border-box;  /* Add this line */
+    overflow: auto;
+    box-sizing: border-box;
 }
-
 
 
     </style>
@@ -154,6 +152,7 @@ _renderChart() {
                 `;
             }
         });
+         console.log('Gantt:', gantt);  // Log the gantt object to the console
     }
 }
 
