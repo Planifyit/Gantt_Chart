@@ -18,6 +18,9 @@
         width: 216px !important;
         height: 144px  !important;
     }
+.fn-gantt .rightPanel .month, .fn-gantt .rightPanel .year { 
+width: 72px !important;
+   }
 
     </style>
     <div id="chart"></div>
