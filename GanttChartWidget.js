@@ -11,7 +11,7 @@
 }
 
 .fn-gantt .leftPanel .spacer {  height: 72px  !important;    }
-
+.fn-gantt .row.header {      overflow: hidden;   }
 .fn-gantt .dataPanel
 {
         width: 216px !important;
