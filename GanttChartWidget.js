@@ -120,7 +120,10 @@ _updateData(dataBinding) {
     }
 }
 
-
+connectedCallback() {
+    console.log('connectedCallback called');
+    this._renderChart();
+}
 _renderChart() {
     console.log('_renderChart called');
     if (this._FrappeGanttReady) {
