@@ -83,7 +83,7 @@ _updateData(dataBinding) {
   
                 
                 console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
-             console.log('the rest dimensions 0:', row.dimensions_0 && row.dimensions_1  , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
+             console.log('the rest measure:', row.measures_0.raw, 'the rest dim', row.dimensions_4.id );  // Log the start and end dates
                 
                const startDate = row.dimensions_2.id;
                 const endDate = row.dimensions_3.id;
