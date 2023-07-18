@@ -83,7 +83,8 @@ _updateData(dataBinding) {
   
                 
                 console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
-       
+             console.log('the rest dimensions 0:', row.dimensions_0 && row.dimensions_1  , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
+                
                const startDate = row.dimensions_2.id;
                 const endDate = row.dimensions_3.id;
                 
@@ -101,10 +102,10 @@ _updateData(dataBinding) {
                 }
                 console.log('startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
                 return {
-                    id: index + 1,  // Unique id of task
-                    text: row.dimensions_0.label,  // Name of task
-                    start_date: startDate.toISOString().split('T')[0],  // Start date of task
-                    end_date: endDate.toISOString().split('T')[0],  // End date of task
+                    id: row.dimensions_0.label,  // Unique id of task
+                    text: row.dimensions_1.label,  // Name of task
+                    start_date: startDate,  // Start date of task
+                    end_date: endDate,  // End date of task
                     progress: 0,  // Progress of task in percent
                     open: true  // Task is open by default
                 };
