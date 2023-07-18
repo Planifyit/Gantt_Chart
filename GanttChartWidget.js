@@ -106,8 +106,8 @@ _updateData(dataBinding) {
                     text: row.dimensions_1.label,  // Name of task
                     start_date: startDate,  // Start date of task
                     end_date: endDate,  // End date of task
-                    progress: 0,  // Progress of task in percent
-                    open: true  // Task is open by default
+                    progress: row.measures_0.raw,  // Progress of task in percent
+                    open: row.dimensions_4.id  // Task is open by default
                 };
             }
         }).filter(Boolean);  // Filter out any null values
