@@ -120,6 +120,7 @@ _updateData(dataBinding) {
     }
 }
 
+
 connectedCallback() {
     console.log('connectedCallback called');
     this._renderChart();
