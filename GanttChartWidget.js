@@ -143,12 +143,15 @@ _renderChart() {
         // Initialize the Gantt chart
         gantt.init(chartElement);
 
+           // Set fit_tasks to false to enable horizontal scrolling
+        gantt.config.fit_tasks = false;
         // Load the tasks into the Gantt chart
         gantt.parse({ data: this.tasks });
 
         console.log('Gantt chart rendered');
     }
 }
+
 
 
 
