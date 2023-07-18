@@ -9,10 +9,9 @@
     width: 100%; 
     max-width: 95%; 
     height: 500px;  
-    overflow: auto; 
+    overflow: hidden; 
     box-sizing: border-box;  
 }
-
   #image-container {
             width: 100%;
             height: 100px;
