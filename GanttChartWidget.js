@@ -144,6 +144,10 @@ _renderChart() {
 
      // Set fit_tasks to false to enable horizontal scrolling
         gantt.config.fit_tasks = true;
+         // Configure the Gantt chart to use a monthly scale
+        gantt.config.scale_unit = "month";
+        gantt.config.step = 1;
+        
         // Initialize the Gantt chart
         gantt.init(chartElement);
 
