@@ -6,12 +6,13 @@
     border: 1px solid #000;
     padding: 10px;
     margin: 10px;
-    width: 100%;  
+    width: 100%; 
     max-width: 95%; 
     height: 500px;  
-    overflow: hidden;  
+    overflow: auto; 
     box-sizing: border-box;  
 }
+
   #image-container {
             width: 100%;
             height: 100px;
