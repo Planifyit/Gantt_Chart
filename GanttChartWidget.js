@@ -80,12 +80,16 @@ _updateData(dataBinding) {
     if (dataBinding && Array.isArray(dataBinding.data)) {
         this.tasks = dataBinding.data.map((row, index) => {
             if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
-
+  
+                
+                console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
+       
                 const [startDay, startMonth, startYear] = row.dimensions_2.id.split('-');
                 const startDate = new Date(`${startYear}-${startMonth}-${startDay}`);
                 const [endDay, endMonth, endYear] = row.dimensions_3.id.split('-');
                 const endDate = new Date(`${endYear}-${endMonth}-${endDay}`);
-              
+               
+                console.log('original startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
        
                 // Check if startDate and endDate are valid dates
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
