@@ -120,37 +120,19 @@ _updateData(dataBinding) {
 
 _renderChart() {
     console.log('_renderChart called');
-    if (this._jQueryGanttReady) {
-        console.log('this._jQuery.fn:', this._jQuery.fn);  // Log this._jQuery.fn to the console
-        console.log('this._jQuery:', this._jQuery);  // Log this._jQuery to the console
-        console.log('jQuery.fn.gantt:', jQuery.fn.gantt);  // Log jQuery.fn.gantt to the console
+    if (this._dhtmlxGanttReady) {
         const chartElement = this._shadowRoot.getElementById('chart');
 
-        // Use $.ready to ensure that jquery.fn.gantt.js is loaded
-        this._jQuery(document).ready(() => {
-            // Add a delay before creating the chart
-            setTimeout(() => {
-                jQuery(chartElement).gantt({  // Use jQuery instead of this._jQuery
-                    source: this.tasks,
-                    navigate: 'scroll',
-                    scale: 'days',
-                    maxScale: 'months',
-                    minScale: 'days',
-                    itemsPerPage: 5,
-                    onItemClick: function(data) {
-                        alert('Item clicked - show some details');
-                    },
-                    onAddClick: function(dt, rowId) {
-                        alert('Empty space clicked - add an item!');
-                    },
-                    onRender: function() {
-                        console.log('chart rendered');
-                    }
-                });
-            }, 100);  // delay of 100 milliseconds
-        });
+        // Initialize the Gantt chart
+        gantt.init(chartElement);
+
+        // Load the tasks into the Gantt chart
+        gantt.parse({ data: this.tasks });
+
+        console.log('Gantt chart rendered');
     }
 }
+
 
 
 
