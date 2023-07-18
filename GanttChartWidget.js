@@ -84,11 +84,9 @@ _updateData(dataBinding) {
                 
                 console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
        
-                const [startDay, startMonth, startYear] = row.dimensions_2.id.split('-');
-                const startDate = new Date(`${startYear}-${startMonth}-${startDay}`);
-                const [endDay, endMonth, endYear] = row.dimensions_3.id.split('-');
-                const endDate = new Date(`${endYear}-${endMonth}-${endDay}`);
-               
+               const startDate = row.dimensions_2.id;
+                const endDate = row.dimensions_3.id;
+                
                 console.log('original startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
        
                 // Check if startDate and endDate are valid dates
