@@ -1,5 +1,8 @@
 # Gantt Chart Widget for SAP Analytics Cloud
 
+![Planifyit Logo](https://planifyit.github.io/Pie_chart/PlanifyIT_Logo2.png)
+
+
 This is a custom widget for SAP Analytics Cloud that displays a Gantt chart using the DHTMLX Gantt library. The widget is designed to be used with data that includes start and end dates for tasks, as well as task names and progress.
 
 ## Features
