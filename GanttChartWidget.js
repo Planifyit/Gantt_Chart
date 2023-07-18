@@ -6,10 +6,10 @@
     border: 1px solid #000;
     padding: 10px;
     margin: 10px;
-    width: 100%; 
+    width: 100%;  
     max-width: 95%; 
     height: 500px;  
-    overflow: hidden; 
+    overflow: hidden;  
     box-sizing: border-box;  
 }
   #image-container {
@@ -51,6 +51,11 @@
             this._shadowRoot.appendChild(dhtmlxGanttScript);
         }
 
+
+
+
+
+
         // GanttChart methods
         static get metadata() {
             console.log('metadata called');
@@ -86,13 +91,13 @@ _updateData(dataBinding) {
             if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
   
                 
-             console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
-             console.log('the rest measure:', row.measures_0.raw, 'the rest dim', row.dimensions_4.id );  
-
-const startDate = new Date(row.dimensions_2.id);
+                console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
+             console.log('the rest measure:', row.measures_0.raw, 'the rest dim', row.dimensions_4.id );  // Log the start and end dates
+                
+   const startDate = new Date(row.dimensions_2.id);
 const endDate = new Date(row.dimensions_3.id);
 
-                console.log('original startDate:', startDate, 'endDate:', endDate);  /
+                console.log('original startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
        
                 // Check if startDate and endDate are valid dates
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
@@ -111,7 +116,7 @@ const endDate = new Date(row.dimensions_3.id);
                     start_date: startDate,  // Start date of task
                     end_date: endDate,  // End date of task
                     progress: row.measures_0.raw,  // Progress of task in percent
-                    open: row.dimensions_4.id  
+                    open: row.dimensions_4.id  // Task is open by default
                 };
             }
         }).filter(Boolean);  // Filter out any null values
