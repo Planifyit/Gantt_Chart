@@ -6,11 +6,11 @@
     border: 1px solid #000;
     padding: 10px;
     margin: 10px;
-    width: 100%;  /* Set the width */
-    max-width: 95%; /* Add this line */
-    height: 500px;  /* Set the height */
-    overflow: hidden;  /* Change this line */
-    box-sizing: border-box;  /* Add this line */
+    width: 100%; 
+    max-width: 95%; 
+    height: 500px;  
+    overflow: hidden; 
+    box-sizing: border-box;  
 }
   #image-container {
             width: 100%;
@@ -51,11 +51,6 @@
             this._shadowRoot.appendChild(dhtmlxGanttScript);
         }
 
-
-
-
-
-
         // GanttChart methods
         static get metadata() {
             console.log('metadata called');
@@ -91,13 +86,13 @@ _updateData(dataBinding) {
             if (row.dimensions_0 && row.dimensions_1 && row.dimensions_2 && row.dimensions_3) {
   
                 
-                console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
-             console.log('the rest measure:', row.measures_0.raw, 'the rest dim', row.dimensions_4.id );  // Log the start and end dates
-                
-   const startDate = new Date(row.dimensions_2.id);
+             console.log('original startDate:', row.dimensions_2.id , 'endDate:', row.dimensions_3.id);  // Log the start and end dates
+             console.log('the rest measure:', row.measures_0.raw, 'the rest dim', row.dimensions_4.id );  
+
+const startDate = new Date(row.dimensions_2.id);
 const endDate = new Date(row.dimensions_3.id);
 
-                console.log('original startDate:', startDate, 'endDate:', endDate);  // Log the start and end dates
+                console.log('original startDate:', startDate, 'endDate:', endDate);  /
        
                 // Check if startDate and endDate are valid dates
                 if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
@@ -116,7 +111,7 @@ const endDate = new Date(row.dimensions_3.id);
                     start_date: startDate,  // Start date of task
                     end_date: endDate,  // End date of task
                     progress: row.measures_0.raw,  // Progress of task in percent
-                    open: row.dimensions_4.id  // Task is open by default
+                    open: row.dimensions_4.id  
                 };
             }
         }).filter(Boolean);  // Filter out any null values
